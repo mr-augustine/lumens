@@ -1,15 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class README : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-}
+﻿/*
+ * Your .gitignore file needs to look like this:
+ * 
+ * Library
+ * ProjectSettings
+ * Temp
+ * 
+ */
