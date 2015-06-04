@@ -5,6 +5,9 @@ using System.Collections;
 /// Documentation example.
 /// 
 /// This is an example of how you should document your code for this project.
+/// 
+/// You'll find that when you type the first "///" it will automatically
+/// produce most of what you need.
 /// </summary>
 public class DocumentationExample : MonoBehaviour
 {
