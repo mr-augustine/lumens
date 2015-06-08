@@ -1,3 +1,6 @@
+Any downloaded assets should be placed into a folder named SharedAssets, and uploaded to a common drive/dropbox.
+Use this as a .gitignore file:
+
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -19,11 +22,4 @@ SharedAssets/
 *.pidb.meta
 
 # Unity3D Generated File On Crash Reports
-
-sysinfo.txt
-
-
-Lumens-csharp.sln
-Lumens.sln
-Lumens.userprefs
-
+sysinfo.txt 
