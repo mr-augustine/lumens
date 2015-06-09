@@ -48,12 +48,15 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\ActiveStateToggler.cs" />
      <Compile Include="Assets\Scripts\ApplicationManager.cs" />
+     <Compile Include="Assets\Scripts\Block.cs" />
      <Compile Include="Assets\Scripts\ChangeColor.cs" />
      <Compile Include="Assets\Scripts\ChangeScene.cs" />
      <Compile Include="Assets\Scripts\DocumentationExample.cs" />
      <Compile Include="Assets\Scripts\DragMe.cs" />
      <Compile Include="Assets\Scripts\DragPanel.cs" />
      <Compile Include="Assets\Scripts\DropMe.cs" />
+     <Compile Include="Assets\Scripts\ManageBlocks.cs" />
+     <Compile Include="Assets\Scripts\ManagePlayerControls.cs" />
      <Compile Include="Assets\Scripts\PanelManager.cs" />
      <Compile Include="Assets\Scripts\README.cs" />
      <Compile Include="Assets\Scripts\ResizePanel.cs" />
