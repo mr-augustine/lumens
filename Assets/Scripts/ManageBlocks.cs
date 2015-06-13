@@ -4,26 +4,33 @@ using System.Collections.Generic;
 
 public class ManageBlocks : MonoBehaviour
 {
-	private Queue<Block> blocks;
+	private ManagePlayerControls MPC;
+	[SerializeField]
+	private GameObject
+		block;
+	private Block currentBlock;
 
 	void Start ()
 	{
-		blocks = new Queue<Block> ();
-		GenerateBlocks ();
+		MPC = GameObject.Find ("GameManager").GetComponent<ManagePlayerControls> ();
+		Invoke ("GenerateBlock", 3);
 	}
 
 	void Update ()
 	{
-		
+		if (currentBlock != null && currentBlock.IsSet ()) {
+			GenerateBlock ();
+		}
 	}
 
-	private void GenerateBlocks ()
+	/// <summary>
+	/// Instantiates a block and then drops it into gameplay.
+	/// </summary>
+	private void GenerateBlock ()
 	{
-
-	}
-
-	private void DropNextBlock ()
-	{
-		blocks.Dequeue ().Drop ();
+		GameObject temp = (GameObject)Instantiate (block, new Vector3 (0, 15, 0), Quaternion.identity);
+		currentBlock = temp.GetComponent<Block> ();
+		currentBlock.Drop ();
+		MPC.SetCurrentBlock (currentBlock);
 	}
 }

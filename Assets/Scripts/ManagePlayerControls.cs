@@ -1,15 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ManagePlayerControls : MonoBehaviour {
+public class ManagePlayerControls : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-	
+	private Block currentBlock;
+	private float hInput;
+
+	void Update ()
+	{
+		if (currentBlock != null && !currentBlock.IsSet ()) {
+			Debug.Log("Current Block Good");
+			hInput = Input.GetAxisRaw ("Horizontal");
+			currentBlock.transform.Translate (hInput, 0, 0);
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void SetCurrentBlock (Block currentBlock)
+	{
+		this.currentBlock = currentBlock;
 	}
 }
