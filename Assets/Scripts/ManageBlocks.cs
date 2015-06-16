@@ -24,9 +24,11 @@ public class ManageBlocks : MonoBehaviour
 
 	void Update ()
 	{
-		TakeInput ();
-		if (currentBlock != null && currentBlock.GetComponent<Block> ().Finished ()) {
-			DropNextBlock ();
+		if (currentBlock != null) {
+			TakeInput ();
+			if (currentBlock.GetComponent<Block> ().Finished ()) {
+				DropNextBlock ();
+			}
 		}
 	}
 
@@ -59,7 +61,7 @@ public class ManageBlocks : MonoBehaviour
 	private GameObject ChooseBlock ()
 	{
 		int i = Random.Range (0, blocks.Length);
-		return (GameObject)Instantiate (blocks [i], new Vector3 (0, 10.5f, 0), Quaternion.identity);
+		return (GameObject)Instantiate (blocks [i], new Vector3 (0, 9f, 0), Quaternion.identity);
 	}
 
 	/// <summary>
@@ -68,15 +70,23 @@ public class ManageBlocks : MonoBehaviour
 	private void TakeInput ()
 	{
 		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-			if (!Physics.Raycast (currentBlock.transform.position, Vector3.left, .5f)) {
+			if (!Physics.Raycast (currentBlock.transform.position, Vector3.left, 1)) {
 				currentBlock.GetComponent<Rigidbody> ().MovePosition (currentBlock.transform.position + Vector3.left);
 			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
-			if (!Physics.Raycast (currentBlock.transform.position, Vector3.right, .5f)) {
+			if (!Physics.Raycast (currentBlock.transform.position, Vector3.right, 1)) {
 				currentBlock.GetComponent<Rigidbody> ().MovePosition (currentBlock.transform.position + Vector3.right);
 			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			// Reserved for instant placement.
+		}
+
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			// Reserved for rotate.
 		}
 	}
 }

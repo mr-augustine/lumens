@@ -22,6 +22,7 @@ public class Block : MonoBehaviour
 	void Update ()
 	{
 		if (active) {
+			Debug.DrawLine (ray.origin, hit.point);
 			if (!landed) {
 				CountDown (ref time, ref reset);
 			}
@@ -33,15 +34,14 @@ public class Block : MonoBehaviour
 	/// </summary>
 	private void CheckDistanceToFloor ()
 	{
-		ray = new Ray (transform.position, Vector3.down);
+		ray = new Ray (transform.position, new Vector3 (0, -1, 0));
 		if (Physics.Raycast (ray, out hit)) {
-			Debug.Log (ray.origin.ToString () + "   " + hit.point.ToString ());
-			if (Vector3.Distance (ray.origin, hit.point) == .5f) {
+			if (Vector3.Distance (ray.origin, hit.point) <= 1.5f) {
 				landed = true;
-			} else {
-				Fall ();
+				return;
 			}
 		}
+		Fall ();
 	}
 
 	/// <summary>
@@ -52,7 +52,7 @@ public class Block : MonoBehaviour
 	private void CountDown (ref float time, ref float reset)
 	{
 		if (time <= 0) {
-			reset = reset * .95f;
+			reset = reset * .9f;
 			time = reset;
 			CheckDistanceToFloor ();
 		} else {
@@ -65,7 +65,7 @@ public class Block : MonoBehaviour
 	/// </summary>
 	private void Fall ()
 	{
-		body.MovePosition (transform.position - Vector3.up);
+		body.MovePosition (transform.position + Vector3.down);
 	}
 
 	/// <summary>
