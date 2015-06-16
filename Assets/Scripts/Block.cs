@@ -7,71 +7,81 @@ using System.Collections;
 public class Block : MonoBehaviour
 {
 	private Rigidbody body;
-	private enum BlockState
-	{
-		INIT,
-		ACT,
-		SET}
-	;
-
-	private BlockState state;
-	private bool hit;
-	public float timer = .5f;
+	private bool active, landed;
+	[SerializeField]
+	private float
+		time, reset;
+	private Ray ray;
+	private RaycastHit hit;
 
 	void Start ()
 	{
 		body = GetComponent<Rigidbody> ();
-		state = BlockState.INIT;
 	}
 
 	void Update ()
 	{
-		switch (state) {
-		case BlockState.INIT:
-			break;
-		case BlockState.ACT:
-			if (hit == true && SetBlock (ref timer) == true) {
-				state = BlockState.SET;
+		if (active) {
+			if (!landed) {
+				CountDown (ref time, ref reset);
 			}
-			break;
-		case BlockState.SET:
-			break;
 		}
-	}
-
-	void OnCollisionEnter ()
-	{
-		hit = true;
 	}
 
 	/// <summary>
-	/// Set the state of the block to active so that it falls into gameplay.
+	/// Checks the distance to floor.
 	/// </summary>
-	public void Drop ()
+	private void CheckDistanceToFloor ()
 	{
-		state = BlockState.ACT;
+		ray = new Ray (transform.position, Vector3.down);
+		if (Physics.Raycast (ray, out hit)) {
+			Debug.Log (ray.origin.ToString () + "   " + hit.point.ToString ());
+			if (Vector3.Distance (ray.origin, hit.point) == .5f) {
+				landed = true;
+			} else {
+				Fall ();
+			}
+		}
 	}
 
 	/// <summary>
-	/// Makes use of a countdown timer in order to deactivate the block after making contact.
+	/// Counts down until the next y-axis decrement.
 	/// </summary>
-	/// <returns><c>true</c>, if time > 0, <c>false</c> otherwise.</returns>
-	/// <param name="timer">Timer.</param>
-	public bool SetBlock (ref float timer)
+	/// <param name="time">Time.</param>
+	/// <param name="reset">Reset.</param>
+	private void CountDown (ref float time, ref float reset)
 	{
-		if (timer <= 0) {
-			Debug.Log("Time Up");
-			return true;
+		if (time <= 0) {
+			reset = reset * .95f;
+			time = reset;
+			CheckDistanceToFloor ();
+		} else {
+			time -= Time.deltaTime;
 		}
-		timer -= Time.deltaTime;
-		return false;
 	}
 
-	public bool IsSet ()
+	/// <summary>
+	/// Decrements the y-axis value.
+	/// </summary>
+	private void Fall ()
 	{
-		if (state == BlockState.SET) {
-			return true;
-		}
-		return false;
+		body.MovePosition (transform.position - Vector3.up);
+	}
+
+	/// <summary>
+	/// Sets the block gameobject active state and active boolean values to true.
+	/// </summary>
+	public void Activate ()
+	{
+		gameObject.SetActive (true);
+		active = true;
+	}
+
+	/// <summary>
+	/// Returns whter the block has landed or not.
+	/// </summary>
+	public bool Finished ()
+	{
+		return landed && active;
 	}
 }

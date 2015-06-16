@@ -2,35 +2,81 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Manages the flow of gameplay for single player mode.
+/// </summary>
 public class ManageBlocks : MonoBehaviour
 {
-	private ManagePlayerControls MPC;
 	[SerializeField]
-	private GameObject
-		block;
-	private Block currentBlock;
+	private GameObject[]
+		blocks;
+	[SerializeField]
+	private int
+		queueLength;
+	private Queue<GameObject> nextBlocks;
+	private GameObject currentBlock;
 
 	void Start ()
 	{
-		MPC = GameObject.Find ("GameManager").GetComponent<ManagePlayerControls> ();
-		Invoke ("GenerateBlock", 3);
+		nextBlocks = new Queue<GameObject> ();
+		StartGame ();
 	}
 
 	void Update ()
 	{
-		if (currentBlock != null && currentBlock.IsSet ()) {
-			GenerateBlock ();
+		TakeInput ();
+		if (currentBlock != null && currentBlock.GetComponent<Block> ().Finished ()) {
+			DropNextBlock ();
 		}
 	}
 
 	/// <summary>
-	/// Instantiates a block and then drops it into gameplay.
+	/// Fills the queue of blocks and then begins the game.
 	/// </summary>
-	private void GenerateBlock ()
+	private void StartGame ()
 	{
-		GameObject temp = (GameObject)Instantiate (block, new Vector3 (0, 15, 0), Quaternion.identity);
-		currentBlock = temp.GetComponent<Block> ();
-		currentBlock.Drop ();
-		MPC.SetCurrentBlock (currentBlock);
+		int i;
+		for (i = 0; i < queueLength; i++) {
+			nextBlocks.Enqueue (ChooseBlock ());
+		}
+
+		Invoke ("DropNextBlock", 3);
+	}
+
+	/// <summary>
+	/// Dequeues the next block and calls the block's activate method.
+	/// </summary>
+	private void DropNextBlock ()
+	{
+		currentBlock = nextBlocks.Dequeue ();
+		currentBlock.GetComponent<Block> ().Activate ();
+	}
+
+	/// <summary>
+	/// Instantiates a random block from the given list and adds it to the queue.
+	/// </summary>
+	/// <returns>The block.</returns>
+	private GameObject ChooseBlock ()
+	{
+		int i = Random.Range (0, blocks.Length);
+		return (GameObject)Instantiate (blocks [i], new Vector3 (0, 10.5f, 0), Quaternion.identity);
+	}
+
+	/// <summary>
+	/// Responds to user input.
+	/// </summary>
+	private void TakeInput ()
+	{
+		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+			if (!Physics.Raycast (currentBlock.transform.position, Vector3.left, .5f)) {
+				currentBlock.GetComponent<Rigidbody> ().MovePosition (currentBlock.transform.position + Vector3.left);
+			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.RightArrow)) {
+			if (!Physics.Raycast (currentBlock.transform.position, Vector3.right, .5f)) {
+				currentBlock.GetComponent<Rigidbody> ().MovePosition (currentBlock.transform.position + Vector3.right);
+			}
+		}
 	}
 }
