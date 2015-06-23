@@ -32,15 +32,19 @@ public class InputManager : MonoBehaviour
 
 		// Rotate Left
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
-
+			currentBlock.RotateCounterClockwise();
 		}
 
 		// Rotate Right
 		if (Input.GetKeyDown (KeyCode.RightShift)) {
-			
+			currentBlock.RotateClockwise();
 		}
 	}
 
+	/// <summary>
+	/// Sets the current block.
+	/// </summary>
+	/// <param name="cB">Current block.</param>
 	public static void SetCurrentBlock (GameObject cB)
 	{
 		currentBlock = cB.GetComponent<Block> ();

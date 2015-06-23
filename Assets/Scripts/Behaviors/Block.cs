@@ -77,6 +77,10 @@ public class Block : MonoBehaviour
 //		if (!HasCollided ())
 	}
 
+	/// <summary>
+	/// Determines whether any of the squares in the block have stopped moving.
+	/// </summary>
+	/// <returns><c>true</c> if this instance has collided; otherwise, <c>false</c>.</returns>
 	private bool HasCollided ()
 	{
 		bool temp = false;
@@ -87,7 +91,7 @@ public class Block : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Returns whether all squares of the block have stopped moving.
+	/// Returns whether all squares in the block have stopped moving.
 	/// </summary>
 	/// <returns><c>true</c>, if done was alled, <c>false</c> otherwise.</returns>
 	public bool AllDone ()

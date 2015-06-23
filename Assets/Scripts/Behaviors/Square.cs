@@ -157,7 +157,7 @@ public class Square : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Determines whether the square is finished.
+	/// Determines whether the square is finished moving.
 	/// </summary>
 	/// <returns><c>true</c> if this instance is finished; otherwise, <c>false</c>.</returns>
 	public bool IsFinished ()
@@ -165,11 +165,19 @@ public class Square : MonoBehaviour
 		return !RaycastDown ();
 	}
 
+	/// <summary>
+	/// Determines whether this square can move left.
+	/// </summary>
+	/// <returns><c>true</c> if this instance can move left; otherwise, <c>false</c>.</returns>
 	public bool CanMoveLeft ()
 	{
 		return !RaycastLeft ();
 	}
 
+	/// <summary>
+	/// Determines whether this square can move right.
+	/// </summary>
+	/// <returns><c>true</c> if this instance can move right; otherwise, <c>false</c>.</returns>
 	public bool CanMoveRight ()
 	{
 		return !RaycastRight ();

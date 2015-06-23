@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Manages block creation and deletion.
+/// </summary>
 public class BlockManager : MonoBehaviour
 {
 	[SerializeField]
@@ -30,12 +33,18 @@ public class BlockManager : MonoBehaviour
 		DropNextBlock ();
 	}
 
+	/// <summary>
+	/// Instantiates a randomly chosen block prefab and adds it to the block queue.
+	/// </summary>
 	private void GenerateBlock ()
 	{
 		int i = Random.Range (0, blockPrefabs.Length - 1);
 		blocks.Enqueue ((GameObject)Instantiate (blockPrefabs [i], startLocation, Quaternion.identity));
 	}
 
+	/// <summary>
+	/// Fills the block queue with "length" number of blocks.
+	/// </summary>
 	private void BuildBlocks ()
 	{
 		for (int i = 0; i < length; i ++) {
@@ -43,20 +52,31 @@ public class BlockManager : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Sets the current block to the next block in the queue and moves the block into play.
+	/// </summary>
 	private void DropNextBlock ()
 	{
-		if (currentBlock == null || currentBlock.GetComponent<Block> ().AllDone ()) {
+		if ((currentBlock == null || currentBlock.GetComponent<Block> ().AllDone ()) && blocks.Count > 0) {
 			currentBlock = blocks.Dequeue ();
 			InputManager.SetCurrentBlock (currentBlock);
 			currentBlock.GetComponent<Block> ().Begin ();
 		}
 	}
 
+	/// <summary>
+	/// Gets the current block.
+	/// </summary>
+	/// <returns>The current block.</returns>
 	public GameObject GetCurrentBlock ()
 	{
 		return currentBlock;
 	}
 
+	/// <summary>
+	/// Gets the interval.
+	/// </summary>
+	/// <returns>The interval.</returns>
 	public float GetInterval ()
 	{
 		return interval;
