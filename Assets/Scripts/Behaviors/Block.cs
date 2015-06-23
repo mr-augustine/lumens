@@ -7,66 +7,84 @@ using System.Collections;
 public class Block : MonoBehaviour
 {
 	private BlockManager manager;
-	private float dropSpeed;
-	private Ray rayDown, raySide;
-	private Rigidbody body;
+	[SerializeField]
+	private float
+		dropSpeed;
+	[SerializeField]
+	private GameObject[]
+		squares;
 
-	void Start ()
+	void OnEnable ()
 	{
-		body = GetComponent<Rigidbody> ();
+		manager = GameObject.Find ("BlockManager").GetComponent<BlockManager> ();
+		dropSpeed = manager.GetInterval ();
+		InvokeRepeating ("Drop", dropSpeed, dropSpeed);
 	}
 
 	/// <summary>
-	/// If not obstructed, moves the block one unit down.
+	/// Sets the block gameobject to active.
+	/// </summary>
+	public void Begin ()
+	{
+		gameObject.SetActive (true);
+	}
+
+	/// <summary>
+	/// Calls the MoveDown method for each of the child squares.
 	/// </summary>
 	private void Drop ()
 	{
-		if (CheckBelow ()) {
-			body.MovePosition (transform.position + Vector3.down);
+		foreach (GameObject obj in squares) {
+			obj.GetComponent<Square> ().MoveDown ();
 		}
 	}
 
 	/// <summary>
-	/// If not obstructed, moves the block one unit in the given direction.
+	/// Calls the MoveLeft method for each of the child squares.
 	/// </summary>
-	/// <param name="side">If set to <c>true</c> LEFT, <c>false</c> RIGHT.</param>
-	public void MoveSide (bool side)
+	public void MoveLeft ()
 	{
-		if (CheckSide (side)) {
-			if (side) {
-				body.MovePosition (transform.position + Vector3.left);
-			} else {
-				body.MovePosition (transform.position + Vector3.right);
-			}
+		foreach (GameObject obj in squares) {
+			obj.GetComponent<Square> ().MoveLeft ();
 		}
 	}
 
 	/// <summary>
-	/// Uses raycasting to check for obstacles below the block.
+	/// Calls the MoveRight method for each of the child squares.
 	/// </summary>
-	/// <returns><c>true</c>, if all clear, <c>false</c> otherwise.</returns>
-	private bool CheckBelow ()
+	public void MoveRight ()
 	{
-		rayDown = new Ray (transform.position, Vector3.down);
-		return !Physics.Raycast (rayDown, 1f);
-	}
-	
-	/// <summary>
-	/// Uses raycasting to check for obstacles in the given direction of the block.
-	/// </summary>
-	/// <returns><c>true</c>, if all clear, <c>false</c> otherwise.</returns>
-	/// <param name="side">If set to <c>true</c> LEFT, <c>false</c> RIGHT.</param>
-	private bool CheckSide (bool side)
-	{
-		if (side) {
-			raySide = new Ray (transform.position, Vector3.left);
-		} else {
-			raySide = new Ray (transform.position, Vector3.right);
+		foreach (GameObject obj in squares) {
+			obj.GetComponent<Square> ().MoveRight ();
 		}
-		return !Physics.Raycast (raySide, 1f);
 	}
 
-	public bool IsFinished(){
-		return true;
+	/// <summary>
+	/// Rotates the child squares' positions clockwise.
+	/// </summary>
+	public void RotateClockwise ()
+	{
+
+	}
+
+	/// <summary>
+	/// Rotates the child squares' positions counter clockwise.
+	/// </summary>
+	public void RotateCounterClockwise ()
+	{
+
+	}
+
+	/// <summary>
+	/// Returns whether all squares of the block have stopped moving.
+	/// </summary>
+	/// <returns><c>true</c>, if done was alled, <c>false</c> otherwise.</returns>
+	public bool AllDone ()
+	{
+		bool temp = true;
+		foreach (GameObject obj in squares) {
+			temp = temp && obj.GetComponent<Square> ().IsFinished ();
+		}
+		return temp;
 	}
 }

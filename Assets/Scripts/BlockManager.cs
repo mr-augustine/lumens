@@ -7,24 +7,52 @@ public class BlockManager : MonoBehaviour
 	[SerializeField]
 	private GameObject[]
 		blockPrefabs;
-	private int length;
-	private List<GameObject> blocks;
+	[SerializeField]
+	private float
+		interval;
+	[SerializeField]
+	private int
+		length;
+	[SerializeField]
+	private Vector3
+		startLocation;
+	private Queue<GameObject> blocks;
+	private GameObject currentBlock;
 
 	void Start ()
 	{
-		blocks = new List<GameObject> ();
+		blocks = new Queue<GameObject> ();
+		BuildBlocks ();
 	}
 
 	void Update ()
 	{
-	
+		DropNextBlock ();
 	}
 
-	/// <summary>
-	/// Chooses a random block prefab, instantiates it, and adds it to the blocks list.
-	/// </summary>
+	private void BuildBlocks ()
+	{
+		for (int i = 0; i < length; i ++) {
+			GenerateBlock ();
+		}
+	}
+	
 	private void GenerateBlock ()
 	{
+		int i = Random.Range (0, blockPrefabs.Length - 1);
+		blocks.Enqueue ((GameObject)Instantiate (blockPrefabs [i], startLocation, Quaternion.identity));
+	}
 
+	private void DropNextBlock ()
+	{
+		if (currentBlock == null || currentBlock.GetComponent<Block> ().AllDone ()) {
+			currentBlock = blocks.Dequeue ();
+			currentBlock.GetComponent<Block> ().Begin ();
+		}
+	}
+
+	public float GetInterval ()
+	{
+		return interval;
 	}
 }
