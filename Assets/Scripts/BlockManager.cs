@@ -25,9 +25,15 @@ public class BlockManager : MonoBehaviour
 		BuildBlocks ();
 	}
 
-	void Update ()
+	void FixedUpdate ()
 	{
 		DropNextBlock ();
+	}
+
+	private void GenerateBlock ()
+	{
+		int i = Random.Range (0, blockPrefabs.Length - 1);
+		blocks.Enqueue ((GameObject)Instantiate (blockPrefabs [i], startLocation, Quaternion.identity));
 	}
 
 	private void BuildBlocks ()
@@ -36,19 +42,19 @@ public class BlockManager : MonoBehaviour
 			GenerateBlock ();
 		}
 	}
-	
-	private void GenerateBlock ()
-	{
-		int i = Random.Range (0, blockPrefabs.Length - 1);
-		blocks.Enqueue ((GameObject)Instantiate (blockPrefabs [i], startLocation, Quaternion.identity));
-	}
 
 	private void DropNextBlock ()
 	{
 		if (currentBlock == null || currentBlock.GetComponent<Block> ().AllDone ()) {
 			currentBlock = blocks.Dequeue ();
+			InputManager.SetCurrentBlock (currentBlock);
 			currentBlock.GetComponent<Block> ().Begin ();
 		}
+	}
+
+	public GameObject GetCurrentBlock ()
+	{
+		return currentBlock;
 	}
 
 	public float GetInterval ()

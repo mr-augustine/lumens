@@ -44,9 +44,10 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void MoveLeft ()
 	{
-		foreach (GameObject obj in squares) {
-			obj.GetComponent<Square> ().MoveLeft ();
-		}
+		if (!HasCollided ())
+			foreach (GameObject obj in squares) {
+				obj.GetComponent<Square> ().MoveLeft ();
+			}
 	}
 
 	/// <summary>
@@ -54,9 +55,10 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void MoveRight ()
 	{
-		foreach (GameObject obj in squares) {
-			obj.GetComponent<Square> ().MoveRight ();
-		}
+		if (!HasCollided ())
+			foreach (GameObject obj in squares) {
+				obj.GetComponent<Square> ().MoveRight ();
+			}
 	}
 
 	/// <summary>
@@ -64,7 +66,7 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void RotateClockwise ()
 	{
-
+//		if (!HasCollided ())
 	}
 
 	/// <summary>
@@ -72,7 +74,16 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void RotateCounterClockwise ()
 	{
+//		if (!HasCollided ())
+	}
 
+	private bool HasCollided ()
+	{
+		bool temp = false;
+		foreach (GameObject obj in squares) {
+			temp = temp || obj.GetComponent<Square> ().IsFinished ();
+		}
+		return temp;
 	}
 
 	/// <summary>
@@ -87,4 +98,6 @@ public class Block : MonoBehaviour
 		}
 		return temp;
 	}
+
+
 }

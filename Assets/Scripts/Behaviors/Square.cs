@@ -52,7 +52,7 @@ public class Square : MonoBehaviour
 	/// </summary>
 	public void MoveDown ()
 	{
-		if (CheckDown ())
+		if (RaycastDown ())
 			body.MovePosition (transform.position + Vector3.down);
 	}
 
@@ -61,7 +61,7 @@ public class Square : MonoBehaviour
 	/// </summary>
 	public void MoveLeft ()
 	{
-		if (CheckLeft ())
+		if (RaycastLeft ())
 			body.MovePosition (transform.position + Vector3.left);
 	}
 
@@ -70,7 +70,7 @@ public class Square : MonoBehaviour
 	/// </summary>
 	public void MoveRight ()
 	{
-		if (CheckRight ())
+		if (RaycastRight ())
 			body.MovePosition (transform.position + Vector3.right);
 	}
 
@@ -79,45 +79,72 @@ public class Square : MonoBehaviour
 	# region COLLISION DETECTION
 
 	/// <summary>
-	/// Checks if the square will collide with something beneath it.
+	/// Raycasts beneath the square to detect possible collisions.
 	/// </summary>
 	/// <returns><c>true</c>, if all clear, <c>false</c> otherwise.</returns>
-	private bool CheckDown ()
+	private bool RaycastDown ()
 	{
 		Ray ray = new Ray (transform.position, Vector3.down);
-		return !Raycast (ray, .5f);
+		RaycastHit hit;
+		float distance = .5f;
+		if (Physics.Raycast (ray, out hit, distance)) {
+			Square tempSq;
+			if ((tempSq = hit.transform.gameObject.GetComponent<Square> ()) != null) {
+				return !tempSq.IsFinished ();
+			} else {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/// <summary>
-	/// Checks if the square will collide with something to its left.
+	/// Raycasts to the left of the square to detect possible collisions.
 	/// </summary>
 	/// <returns><c>true</c>, if all clear, <c>false</c> otherwise.</returns>
-	private bool CheckLeft ()
+	private bool RaycastLeft ()
 	{
 		Ray ray = new Ray (transform.position, Vector3.left);
-		return !Raycast (ray, .5f);
+		RaycastHit hit;
+		float distance = .5f;
+		if (Physics.Raycast (ray, out hit, distance)) {
+			Square tempSq;
+			if ((tempSq = hit.transform.gameObject.GetComponent<Square> ()) != null) {
+				if (tempSq.IsFinished ()) {
+					return false;
+				} else {
+					return !tempSq.CanMoveLeft ();
+				}
+			} else {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/// <summary>
-	/// Checks if the square will collide with something to its right.
+	/// Raycasts to the right of the square to detect possible collisions.
 	/// </summary>
 	/// <returns><c>true</c>, if all clear, <c>false</c> otherwise.</returns>
-	private bool CheckRight ()
+	private bool RaycastRight ()
 	{
 		Ray ray = new Ray (transform.position, Vector3.right);
-		return !Raycast (ray, .5f);
+		RaycastHit hit;
+		float distance = .5f;
+		if (Physics.Raycast (ray, out hit, distance)) {
+			Square tempSq;
+			if ((tempSq = hit.transform.gameObject.GetComponent<Square> ()) != null) {
+				if (tempSq.IsFinished ()) {
+					return false;
+				} else {
+					return !tempSq.CanMoveRight ();
+				}
+			} else {
+				return false;
+			}
+		}
+		return true;
 	}
-
-	/// <summary>
-	/// Raycast the specified ray and distance.
-	/// </summary>
-	/// <param name="ray">Ray.</param>
-	/// <param name="distance">Distance.</param>
-	private bool Raycast (Ray ray, float distance)
-	{
-		return Physics.Raycast (ray, distance);
-	}
-
 	#endregion
 
 	/// <summary>
@@ -135,6 +162,16 @@ public class Square : MonoBehaviour
 	/// <returns><c>true</c> if this instance is finished; otherwise, <c>false</c>.</returns>
 	public bool IsFinished ()
 	{
-		return !CheckDown ();
+		return !RaycastDown ();
+	}
+
+	public bool CanMoveLeft ()
+	{
+		return !RaycastLeft ();
+	}
+
+	public bool CanMoveRight ()
+	{
+		return !RaycastRight ();
 	}
 }
