@@ -1,10 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Behaviors/Block.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SweeperRenderer.cs">
     <Files>
-      <File FileName="Assets/Scripts/BlockManager.cs" Line="48" Column="28" />
-      <File FileName="Assets/Scripts/Behaviors/Block.cs" Line="79" Column="67" />
-      <File FileName="Assets/Scripts/Behaviors/Square.cs" Line="133" Column="35" />
+      <File FileName="Assets\Scripts\BlockManager.cs" Line="21" Column="17" />
+      <File FileName="Assets\Scripts\SweeperRenderer.cs" Line="19" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
