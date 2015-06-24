@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
 
 		// Fast Down
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
-			
+			currentBlock.MoveDown();
 		}
 
 		// Move Left
@@ -38,6 +38,21 @@ public class InputManager : MonoBehaviour
 		// Rotate Right
 		if (Input.GetKeyDown (KeyCode.RightShift)) {
 			currentBlock.RotateClockwise();
+		}
+
+		// Hold Move Down
+		if (Input.GetKey (KeyCode.DownArrow)) {
+			currentBlock.MoveDown ();
+		}
+
+		// Hold Move Left
+		if (Input.GetKey (KeyCode.LeftArrow)) {
+			currentBlock.MoveLeft ();
+		}
+
+		// Hold Move Right
+		if (Input.GetKey (KeyCode.RightArrow)) {
+			currentBlock.MoveRight ();
 		}
 	}
 
