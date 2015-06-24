@@ -32,7 +32,7 @@ public class Block : MonoBehaviour
 	/// <summary>
 	/// Calls the MoveDown method for each of the child squares.
 	/// </summary>
-	private void Drop ()
+	public void Drop ()
 	{
 		foreach (GameObject obj in squares) {
 			obj.GetComponent<Square> ().MoveDown ();
