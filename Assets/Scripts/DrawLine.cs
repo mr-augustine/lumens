@@ -20,16 +20,17 @@ public class DrawLine : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (count < distance) {
-			count += .1f / drawSpeed;
+//		if (count < distance) {
+//			count += .1f / drawSpeed;
+//
+//			float x = Mathf.Lerp(0, distance, count);
+//
+//			Vector3 startPoint = SweeperSphereTop.position;
+//			Vector3 endPoint = SweeperSphereBottom.position;
+//			Vector3 pointInTheLine = x * Vector3.Normalize(endPoint - startPoint) + startPoint;
 
-			float x = Mathf.Lerp(0, distance, count);
-
-			Vector3 startPoint = SweeperSphereTop.position;
-			Vector3 endPoint = SweeperSphereBottom.position;
-			Vector3 pointInTheLine = x * Vector3.Normalize(endPoint - startPoint) + startPoint;
-
-			sweeperBar.SetPosition(1, pointInTheLine);
-		}	
+			sweeperBar.SetPosition(0, SweeperSphereTop.position);
+			sweeperBar.SetPosition(1, SweeperSphereBottom.position);
+//		}	
 	}
 }
