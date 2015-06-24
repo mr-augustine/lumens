@@ -7,8 +7,18 @@ using System.Collections;
 public class Block : MonoBehaviour
 {
 	private BlockManager manager;
-	[SerializeField] private float dropSpeed;
-	[SerializeField] private GameObject[] squares;
+
+	[SerializeField]
+	private float
+		dropSpeed;
+	[SerializeField]
+	private GameObject[]
+		squares;
+	GameObject botLeft;
+	GameObject botRight;
+	GameObject topRight;
+	GameObject topLeft;
+	
 
 	void OnEnable ()
 	{
@@ -23,6 +33,10 @@ public class Block : MonoBehaviour
 	public void Begin ()
 	{
 		gameObject.SetActive (true);
+		topLeft = squares[0];
+		topRight = squares[1];
+		botLeft = squares[2];
+		botRight = squares[3];
 	}
 
 	/// <summary>
@@ -77,7 +91,19 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void RotateClockwise ()
 	{
-//		if (!HasCollided ())
+		if (!HasCollided ()) {
+			topLeft.transform.Translate (new Vector3 (topRight.transform.position.x-topLeft.transform.position.x, 0, 0));
+			topRight.transform.Translate (new Vector3 (0, botRight.transform.position.y-topRight.transform.position.y,0));
+			botRight.transform.Translate (new Vector3 (botLeft.transform.position.x-botRight.transform.position.x, 0, 0));
+			botLeft.transform.Translate (new Vector3 (0, topLeft.transform.position.y-botLeft.transform.position.y,0));
+			
+			GameObject temp = topRight;
+			topRight = topLeft;
+			topLeft = botLeft;
+			botLeft = botRight;
+			botRight = temp;
+					
+		}
 	}
 
 	/// <summary>
@@ -85,7 +111,21 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void RotateCounterClockwise ()
 	{
-//		if (!HasCollided ())
+		if (!HasCollided ()) {
+			topLeft.transform.Translate (new Vector3 (0, botLeft.transform.position.y-topLeft.transform.position.y, 0));
+			botLeft.transform.Translate (new Vector3 (botRight.transform.position.x-botLeft.transform.position.x,0,0));
+			botRight.transform.Translate (new Vector3 (0,topRight.transform.position.y-botRight.transform.position.y, 0));
+			topRight.transform.Translate (new Vector3 (topLeft.transform.position.x-topRight.transform.position.x,0,0));
+			
+			
+			
+			GameObject temp = topLeft;
+			topLeft = topRight;
+			topRight = botRight;
+			botRight = botLeft;
+			botLeft = temp;
+			
+		}
 	}
 
 	/// <summary>
