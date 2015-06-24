@@ -15,28 +15,31 @@ public class InputManager : MonoBehaviour
 		if (currentBlock == null)
 			return;
 
+		float horizontalInput = Input.GetAxis ("Horizontal");
+		float verticalInput = Input.GetAxis ("Vertical");
+
 		// Fast Down
-		if (Input.GetKeyDown (KeyCode.DownArrow)) {
-			
+		if (verticalInput < 0) {
+			currentBlock.MoveDown ();
 		}
 
 		// Move Left
-		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
+		if (horizontalInput < 0) {
 			currentBlock.MoveLeft();
 		}
 
 		// Move Right
-		if (Input.GetKeyDown (KeyCode.RightArrow)) {
+		if (horizontalInput > 0) {
 			currentBlock.MoveRight();
 		}
 
 		// Rotate Left
-		if (Input.GetKeyDown (KeyCode.LeftShift)) {
+		if (Input.GetButtonUp("Fire1")) {
 			currentBlock.RotateCounterClockwise();
 		}
 
 		// Rotate Right
-		if (Input.GetKeyDown (KeyCode.RightShift)) {
+		if (Input.GetButtonUp("Fire2")) {
 			currentBlock.RotateClockwise();
 		}
 	}

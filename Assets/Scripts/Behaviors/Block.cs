@@ -7,12 +7,8 @@ using System.Collections;
 public class Block : MonoBehaviour
 {
 	private BlockManager manager;
-	[SerializeField]
-	private float
-		dropSpeed;
-	[SerializeField]
-	private GameObject[]
-		squares;
+	[SerializeField] private float dropSpeed;
+	[SerializeField] private GameObject[] squares;
 
 	void OnEnable ()
 	{
@@ -32,9 +28,10 @@ public class Block : MonoBehaviour
 	/// <summary>
 	/// Calls the MoveDown method for each of the child squares.
 	/// </summary>
-	private void Drop ()
+	public void Drop ()
 	{
 		foreach (GameObject obj in squares) {
+			Debug.Log(obj.GetComponent<Square> ().name);
 			obj.GetComponent<Square> ().MoveDown ();
 		}
 	}
@@ -59,6 +56,20 @@ public class Block : MonoBehaviour
 			foreach (GameObject obj in squares) {
 				obj.GetComponent<Square> ().MoveRight ();
 			}
+	}
+
+	/// <summary>
+	/// Calls the MoveDown method for each of the child squares.
+	/// </summary>
+	public void MoveDown()
+	{
+		if (!HasCollided ()) {
+			CancelInvoke();
+			foreach (GameObject obj in squares) {
+				obj.GetComponent<Square> ().MoveDown ();
+			}
+			InvokeRepeating ("Drop", dropSpeed, dropSpeed);
+		}
 	}
 
 	/// <summary>
