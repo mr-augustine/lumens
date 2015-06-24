@@ -46,22 +46,23 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\ActiveStateToggler.cs" />
-     <Compile Include="Assets\Scripts\ApplicationManager.cs" />
-     <Compile Include="Assets\Scripts\Block.cs" />
-     <Compile Include="Assets\Scripts\ChangeColor.cs" />
-     <Compile Include="Assets\Scripts\ChangeScene.cs" />
-     <Compile Include="Assets\Scripts\DocumentationExample.cs" />
-     <Compile Include="Assets\Scripts\DragMe.cs" />
-     <Compile Include="Assets\Scripts\DragPanel.cs" />
-     <Compile Include="Assets\Scripts\DropMe.cs" />
-     <Compile Include="Assets\Scripts\ManageBlocks.cs" />
-     <Compile Include="Assets\Scripts\PanelManager.cs" />
-     <Compile Include="Assets\Scripts\README.cs" />
-     <Compile Include="Assets\Scripts\ResizePanel.cs" />
-     <Compile Include="Assets\Scripts\ScrollDetailTexture.cs" />
-     <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
-     <Compile Include="Assets\Scripts\TiltWindow.cs" />
+     <Compile Include="Assets\InputManager.cs" />
+     <Compile Include="Assets\Scripts\Behaviors\Block.cs" />
+     <Compile Include="Assets\Scripts\Behaviors\Square.cs" />
+     <Compile Include="Assets\Scripts\BlockManager.cs" />
+     <Compile Include="Assets\Scripts\Tools\ChangeScene.cs" />
+     <Compile Include="Assets\Scripts\UI\ActiveStateToggler.cs" />
+     <Compile Include="Assets\Scripts\UI\ApplicationManager.cs" />
+     <Compile Include="Assets\Scripts\UI\ChangeColor.cs" />
+     <Compile Include="Assets\Scripts\UI\DocumentationExample.cs" />
+     <Compile Include="Assets\Scripts\UI\DragMe.cs" />
+     <Compile Include="Assets\Scripts\UI\DragPanel.cs" />
+     <Compile Include="Assets\Scripts\UI\DropMe.cs" />
+     <Compile Include="Assets\Scripts\UI\PanelManager.cs" />
+     <Compile Include="Assets\Scripts\UI\ResizePanel.cs" />
+     <Compile Include="Assets\Scripts\UI\ScrollDetailTexture.cs" />
+     <Compile Include="Assets\Scripts\UI\ShowSliderValue.cs" />
+     <Compile Include="Assets\Scripts\UI\TiltWindow.cs" />
      <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
      <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
      <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
