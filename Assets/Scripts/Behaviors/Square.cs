@@ -182,4 +182,9 @@ public class Square : MonoBehaviour
 	{
 		return !RaycastRight ();
 	}
+
+	public bool InDeadZone ()
+	{
+		return transform.position.y > 9.5;
+	}
 }

@@ -53,14 +53,26 @@ public class BlockManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Sets the current block to the next block in the queue and moves the block into play.
+	/// Sets the current block to the next block in the queue and moves the block into play. Determines if
+	/// game has ended.
 	/// </summary>
 	private void DropNextBlock ()
 	{
-		if ((currentBlock == null || currentBlock.GetComponent<Block> ().AllDone ()) && blocks.Count > 0) {
-			currentBlock = blocks.Dequeue ();
-			InputManager.SetCurrentBlock (currentBlock);
-			currentBlock.GetComponent<Block> ().Begin ();
+		if (blocks.Count > 0) {
+			if (currentBlock == null) {
+				currentBlock = blocks.Dequeue ();
+				InputManager.SetCurrentBlock (currentBlock);
+				currentBlock.GetComponent<Block> ().Begin ();
+			} else if (currentBlock.GetComponent<Block> ().AllDone ()) {
+				if (currentBlock.GetComponent<Block> ().InDeadZone ()) {
+					//Game Over
+					Time.timeScale = 0;
+				} else {
+					currentBlock = blocks.Dequeue ();
+					InputManager.SetCurrentBlock (currentBlock);
+					currentBlock.GetComponent<Block> ().Begin ();
+				}
+			}
 		}
 	}
 

@@ -7,18 +7,13 @@ using System.Collections;
 public class Block : MonoBehaviour
 {
 	private BlockManager manager;
-
 	[SerializeField]
 	private float
 		dropSpeed;
 	[SerializeField]
 	private GameObject[]
 		squares;
-	GameObject botLeft;
-	GameObject botRight;
-	GameObject topRight;
-	GameObject topLeft;
-	
+	private GameObject botLeft, botRight, topRight, topLeft;
 
 	void OnEnable ()
 	{
@@ -33,10 +28,10 @@ public class Block : MonoBehaviour
 	public void Begin ()
 	{
 		gameObject.SetActive (true);
-		topLeft = squares[0];
-		topRight = squares[1];
-		botLeft = squares[2];
-		botRight = squares[3];
+		topLeft = squares [0];
+		topRight = squares [1];
+		botLeft = squares [2];
+		botRight = squares [3];
 	}
 
 	/// <summary>
@@ -45,7 +40,6 @@ public class Block : MonoBehaviour
 	public void Drop ()
 	{
 		foreach (GameObject obj in squares) {
-			Debug.Log(obj.GetComponent<Square> ().name);
 			obj.GetComponent<Square> ().MoveDown ();
 		}
 	}
@@ -55,10 +49,13 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void MoveLeft ()
 	{
-		if (!HasCollided ())
-			foreach (GameObject obj in squares) {
-				obj.GetComponent<Square> ().MoveLeft ();
+		if (!HasCollided ()) {
+			if (!topLeft.GetComponent<Square> ().CanMoveLeft () && !botLeft.GetComponent<Square> ().CanMoveLeft ()) {
+				foreach (GameObject obj in squares) {
+					obj.GetComponent<Square> ().MoveLeft ();
+				}
 			}
+		}
 	}
 
 	/// <summary>
@@ -66,19 +63,22 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void MoveRight ()
 	{
-		if (!HasCollided ())
-			foreach (GameObject obj in squares) {
-				obj.GetComponent<Square> ().MoveRight ();
+		if (!HasCollided ()) {
+			if (!topRight.GetComponent<Square> ().CanMoveRight () && !botRight.GetComponent<Square> ().CanMoveRight ()) {
+				foreach (GameObject obj in squares) {
+					obj.GetComponent<Square> ().MoveRight ();
+				}
 			}
+		}
 	}
 
 	/// <summary>
 	/// Calls the MoveDown method for each of the child squares.
 	/// </summary>
-	public void MoveDown()
+	public void MoveDown ()
 	{
 		if (!HasCollided ()) {
-			CancelInvoke();
+			CancelInvoke ();
 			foreach (GameObject obj in squares) {
 				obj.GetComponent<Square> ().MoveDown ();
 			}
@@ -92,17 +92,16 @@ public class Block : MonoBehaviour
 	public void RotateClockwise ()
 	{
 		if (!HasCollided ()) {
-			topLeft.transform.Translate (new Vector3 (topRight.transform.position.x-topLeft.transform.position.x, 0, 0));
-			topRight.transform.Translate (new Vector3 (0, botRight.transform.position.y-topRight.transform.position.y,0));
-			botRight.transform.Translate (new Vector3 (botLeft.transform.position.x-botRight.transform.position.x, 0, 0));
-			botLeft.transform.Translate (new Vector3 (0, topLeft.transform.position.y-botLeft.transform.position.y,0));
+			topLeft.transform.Translate (new Vector3 (topRight.transform.position.x - topLeft.transform.position.x, 0, 0));
+			topRight.transform.Translate (new Vector3 (0, botRight.transform.position.y - topRight.transform.position.y, 0));
+			botRight.transform.Translate (new Vector3 (botLeft.transform.position.x - botRight.transform.position.x, 0, 0));
+			botLeft.transform.Translate (new Vector3 (0, topLeft.transform.position.y - botLeft.transform.position.y, 0));
 			
 			GameObject temp = topRight;
 			topRight = topLeft;
 			topLeft = botLeft;
 			botLeft = botRight;
 			botRight = temp;
-					
 		}
 	}
 
@@ -112,19 +111,16 @@ public class Block : MonoBehaviour
 	public void RotateCounterClockwise ()
 	{
 		if (!HasCollided ()) {
-			topLeft.transform.Translate (new Vector3 (0, botLeft.transform.position.y-topLeft.transform.position.y, 0));
-			botLeft.transform.Translate (new Vector3 (botRight.transform.position.x-botLeft.transform.position.x,0,0));
-			botRight.transform.Translate (new Vector3 (0,topRight.transform.position.y-botRight.transform.position.y, 0));
-			topRight.transform.Translate (new Vector3 (topLeft.transform.position.x-topRight.transform.position.x,0,0));
-			
-			
-			
+			topLeft.transform.Translate (new Vector3 (0, botLeft.transform.position.y - topLeft.transform.position.y, 0));
+			botLeft.transform.Translate (new Vector3 (botRight.transform.position.x - botLeft.transform.position.x, 0, 0));
+			botRight.transform.Translate (new Vector3 (0, topRight.transform.position.y - botRight.transform.position.y, 0));
+			topRight.transform.Translate (new Vector3 (topLeft.transform.position.x - topRight.transform.position.x, 0, 0));
+
 			GameObject temp = topLeft;
 			topLeft = topRight;
 			topRight = botRight;
 			botRight = botLeft;
 			botLeft = temp;
-			
 		}
 	}
 
@@ -154,5 +150,17 @@ public class Block : MonoBehaviour
 		return temp;
 	}
 
-
+	/// <summary>
+	/// Returns whether the block resides in the dead zone or not.
+	/// </summary>
+	/// <returns><c>true</c>, if in dead zone, <c>false</c> otherwise.</returns>
+	public bool InDeadZone ()
+	{
+		bool temp = false;
+		foreach (GameObject obj in squares) {
+			temp = temp || obj.GetComponent<Square> ().InDeadZone ();
+		}
+		return temp;
+	}
+	
 }
