@@ -22,7 +22,6 @@ public class InputManager : MonoBehaviour
 
 		// Move Left
 		if (Input.GetKeyDown (KeyCode.LeftArrow)) {
-			Debug.Log ("HIT");
 			currentBlock.MoveLeft ();
 		} else if (Input.GetKey (KeyCode.LeftShift) && Input.GetKey (KeyCode.LeftArrow)) {
 			currentBlock.MoveLeft ();

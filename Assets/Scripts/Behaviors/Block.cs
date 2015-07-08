@@ -77,13 +77,13 @@ public class Block : MonoBehaviour
 	/// </summary>
 	public void MoveDown ()
 	{
-		if (!HasCollided ()) {
+		//if (!HasCollided ()) {
 			CancelInvoke ();
 			foreach (GameObject obj in squares) {
 				obj.GetComponent<Square> ().MoveDown ();
 			}
 			InvokeRepeating ("Drop", dropSpeed, dropSpeed);
-		}
+	//	}
 	}
 
 	/// <summary>
