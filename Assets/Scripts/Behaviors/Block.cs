@@ -4,8 +4,10 @@ using System.Collections;
 /// <summary>
 /// The behavior for block pieces.
 /// </summary>
-public class Block : MonoBehaviour
+public class Block : MonoBehaviour, IEnumerable
 {
+	public enum Spot { BotRight, BotLeft, TopLeft, TopRight };
+	public static int NUMSQUARES = 4;
 	private BlockManager manager;
 	[SerializeField]
 	private float
@@ -162,5 +164,81 @@ public class Block : MonoBehaviour
 		}
 		return temp;
 	}
-	
+
+	public string GetPositionAsString() {
+		return ("[" + this.transform.position.x + ", " +
+				this.transform.position.y + ", " +
+				this.transform.position.z + "]");
+	}
+
+	public GameObject[] GetSquaresArray() {
+		return this.squares;
+	}
+
+	public Square GetSquareAtSpot(Spot spot) {
+		switch (spot) {
+			case Spot.BotLeft:
+				return botLeft.GetComponent<Square>();
+			case Spot.BotRight:
+				return botRight.GetComponent<Square>();
+			case Spot.TopLeft:
+				return topLeft.GetComponent<Square>();
+			case Spot.TopRight:
+				return topRight.GetComponent<Square>();
+			default:
+				Debug.Log("Received invalid Square Spot");
+				return null;
+		}
+	}
+
+	IEnumerator IEnumerable.GetEnumerator() {
+		return (IEnumerator) GetEnumerator();
+	}
+
+	public BlockEnum GetEnumerator() {
+		return new BlockEnum(this);
+	}
+}
+
+public class BlockEnum: IEnumerator {
+	//GameObject[] _squares;
+	Block _block;
+	int position = -1;
+
+	public BlockEnum(Block block) {
+		//_squares = block.GetSquares ();
+		_block = block;
+	}
+
+	public bool MoveNext() {
+		position++;
+		return (position < Block.NUMSQUARES); //(position < _squares.Length);
+	}
+
+	public void Reset() {
+		position = -1;
+	}
+
+	object IEnumerator.Current  {
+		get {
+			return Current;
+		}
+	}
+
+	public Square Current {
+		get {
+			switch (position) {
+				case 0:
+					return _block.GetSquareAtSpot(Block.Spot.BotRight);
+				case 1:
+					return _block.GetSquareAtSpot(Block.Spot.BotLeft);
+				case 2:
+					return _block.GetSquareAtSpot(Block.Spot.TopLeft);
+				case 3:
+					return _block.GetSquareAtSpot(Block.Spot.TopRight);
+				default:
+					throw new System.InvalidOperationException();
+			}
+		}
+	}
 }

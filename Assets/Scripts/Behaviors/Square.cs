@@ -187,4 +187,9 @@ public class Square : MonoBehaviour
 	{
 		return transform.position.y > 9.5;
 	}
+
+	public override string ToString ()
+	{
+		return base.ToString () + ": " + type.ToString ();
+	}
 }
