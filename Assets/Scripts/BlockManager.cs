@@ -22,10 +22,14 @@ public class BlockManager : MonoBehaviour
 	private Queue<GameObject> blocks;
 	private GameObject currentBlock;
 
+	private Grid theGrid;
+
 	void Start ()
 	{
 		blocks = new Queue<GameObject> ();
 		BuildBlocks ();
+
+		theGrid = GameObject.FindGameObjectWithTag("SinglePlayerScene").GetComponent<Grid>();
 	}
 
 	void FixedUpdate ()
@@ -68,6 +72,9 @@ public class BlockManager : MonoBehaviour
 					//Game Over
 					Time.timeScale = 0;
 				} else {
+					// aah Before dequeuing, we should notify the grid that the block
+					// just completed its fall
+					theGrid.Notify(currentBlock.GetComponent<Block> ());
 					currentBlock = blocks.Dequeue ();
 					InputManager.SetCurrentBlock (currentBlock);
 					currentBlock.GetComponent<Block> ().Begin ();
