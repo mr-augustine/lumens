@@ -175,6 +175,11 @@ public class Block : MonoBehaviour, IEnumerable
 		return this.squares;
 	}
 
+	/// <summary>
+	/// Identifies the Square positioned in the specified Spot for a Block.
+	/// </summary>
+	/// <returns>A reference to the Square at Spot.</returns>
+	/// <param name="spot">Relative position within the Block.</param>
 	public Square GetSquareAtSpot(Spot spot) {
 		switch (spot) {
 			case Spot.BotLeft:
@@ -200,19 +205,21 @@ public class Block : MonoBehaviour, IEnumerable
 	}
 }
 
+/// <summary>
+/// Enumerates all of a Block's Squares in a specific order.
+/// This allows Blocks to be used in <c>foreach<c/c> loops
+/// </summary>
 public class BlockEnum: IEnumerator {
-	//GameObject[] _squares;
 	Block _block;
 	int position = -1;
 
 	public BlockEnum(Block block) {
-		//_squares = block.GetSquares ();
 		_block = block;
 	}
 
 	public bool MoveNext() {
 		position++;
-		return (position < Block.NUMSQUARES); //(position < _squares.Length);
+		return (position < Block.NUMSQUARES);
 	}
 
 	public void Reset() {
