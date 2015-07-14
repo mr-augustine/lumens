@@ -16,6 +16,9 @@ public class Square : MonoBehaviour
 		type;
 	private Rigidbody body;
 
+	private int gridRow = 0;
+	private int gridColumn = 0;
+
 	void Start ()
 	{
 		body = GetComponent<Rigidbody> ();
@@ -186,6 +189,27 @@ public class Square : MonoBehaviour
 	public bool InDeadZone ()
 	{
 		return transform.position.y > 9.5;
+	}
+
+	public int GetGridRow() {
+		return gridRow;
+	}
+
+	public void SetGridRow(int row) {
+		gridRow = row;
+	}
+
+	public int GetGridColumn() {
+		return gridColumn;
+	}
+
+	public void SetGridColumn(int column) {
+		gridColumn = column;
+	}
+
+	public void SetGridCoord(int row, int column) {
+		SetGridRow (row);
+		SetGridColumn(column);
 	}
 
 	public override string ToString ()
