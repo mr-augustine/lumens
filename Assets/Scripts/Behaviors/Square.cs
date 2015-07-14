@@ -3,10 +3,14 @@ using System.Collections;
 
 public enum SquareType
 {
-	WHITE,
-	ORANG,
-	SPC_W,
-	SPC_O}
+	LIGHT,
+	DARK,
+	SPC_LIGHT,
+	SPC_DARK,
+	CLUSTER,	// The Color displayed when the square joins a Cluster
+	ORIGINAL   	// A shortcut to specify the Color given to the 
+				// Square when it was first initialized
+}
 ;
 
 public class Square : MonoBehaviour
@@ -18,6 +22,7 @@ public class Square : MonoBehaviour
 
 	private int gridRow = 0;
 	private int gridColumn = 0;
+	//private Color color;
 
 	void Start ()
 	{
@@ -25,19 +30,21 @@ public class Square : MonoBehaviour
 
 		Material mat = GetComponent<Renderer> ().material;
 		switch (type) {
-		case SquareType.WHITE:
+		case SquareType.LIGHT:
 			mat.color = Color.white;
 			break;
-		case SquareType.SPC_W:
+		case SquareType.SPC_LIGHT:
 			mat.color = Color.white;
 			break;
-		case SquareType.ORANG:
+		case SquareType.DARK:
 			mat.color = Color.red;
 			break;
-		case SquareType.SPC_O:
+		case SquareType.SPC_DARK:
 			mat.color = Color.red;
 			break;
 		}
+
+		//color = mat.color;
 	}
 
 	#region BLOCK MOVEMENT
@@ -207,9 +214,20 @@ public class Square : MonoBehaviour
 		gridColumn = column;
 	}
 
+	/// <summary>
+	/// Sets the grid coordinate for the Square. This function is
+	/// called by the Grid whenever a Square reaches a terminating
+	/// position within the Grid.
+	/// </summary>
+	/// <param name="row">Row index.</param>
+	/// <param name="column">Column index.</param>
 	public void SetGridCoord(int row, int column) {
 		SetGridRow (row);
 		SetGridColumn(column);
+	}
+
+	public void PresentColor(SquareType newColor) {
+		// Use this function to change the color of the Square
 	}
 
 	public override string ToString ()

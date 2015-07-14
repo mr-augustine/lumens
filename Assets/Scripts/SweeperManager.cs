@@ -13,6 +13,7 @@ public class SweeperManager : MonoBehaviour
 	private int iteration; //!< the Timeline's current sweep iteration
 	private Turn current;  //!< shortcut that represents the current iteration
 	private Turn next;	   //!< shortcut that represents the next iteration
+	private int gridColumn; //!< column position within the grid matrix
 
 	void Start ()
 	{
