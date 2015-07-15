@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Behaviors\Block.cs" />
+     <Compile Include="Assets\Scripts\Behaviors\Cluster.cs" />
      <Compile Include="Assets\Scripts\Behaviors\Grid.cs" />
+     <Compile Include="Assets\Scripts\Behaviors\Poly.cs" />
      <Compile Include="Assets\Scripts\Behaviors\Square.cs" />
      <Compile Include="Assets\Scripts\BlockManager.cs" />
      <Compile Include="Assets\Scripts\DrawLine.cs" />
