@@ -1,12 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Behaviors\Square.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Behaviors\Poly.cs">
     <Files>
-      <File FileName="Assets\Scripts\Behaviors\Block.cs" Line="202" Column="2" />
-      <File FileName="Assets\Scripts\SweeperManager.cs" Line="8" Column="32" />
+      <File FileName="Assets\Scripts\Behaviors\Grid.cs" Line="237" Column="3" />
+      <File FileName="Assets\Scripts\Behaviors\Cluster.cs" Line="7" Column="29" />
+      <File FileName="Assets\Scripts\Behaviors\Poly.cs" Line="25" Column="1" />
       <File FileName="Assets\Scripts\Behaviors\Square.cs" Line="47" Column="5" />
-      <File FileName="Assets\Scripts\UI\DocumentationExample.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Behaviors\Grid.cs" Line="254" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
