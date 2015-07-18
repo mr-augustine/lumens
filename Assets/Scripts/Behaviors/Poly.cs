@@ -58,8 +58,19 @@ public class Poly //: MonoBehaviour
 		return ID;
 	}
 
+	public int GetLeftBound() {
+		return squares[1].GetGridColumn();
+	}
 
+	public int GetRightBound() {
+		return squares[0].GetGridColumn();
+	}
 
+	public void UpdateClusterRef(Cluster curr) {
+		foreach (Square square in squares) {
+			square.SetCluster(curr);
+		}
+	}
 
 	/*// Use this for initialization
 	void Start ()

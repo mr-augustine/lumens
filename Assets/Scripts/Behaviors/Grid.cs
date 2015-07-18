@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Grid : MonoBehaviour
 {
@@ -14,11 +16,17 @@ public class Grid : MonoBehaviour
 	public const int ROWOFFSET = 11;
 
 	private Square[,] grid;
+	private List<Cluster> currentTurnClusters;
+	private List<Cluster> nextTurnClusters;
+	SweeperManager timeline;
 
 	// Use this for initialization
 	void Start ()
 	{
 		grid = new Square[Grid.MAXROW + 1, Grid.MAXCOLUMN + 1];
+		timeline = GameObject.FindGameObjectWithTag ("TimeLine").GetComponent<SweeperManager>();
+		currentTurnClusters = new List<Cluster>();
+		nextTurnClusters = new List<Cluster>();
 	}
 	
 	// Update is called once per frame
@@ -255,10 +263,79 @@ public class Grid : MonoBehaviour
 				Debug.Log ("***Neighbors of " + square.ToString () + 
 				           " in " + quadrant.ToString () + " can be deleted***");
 
-				Poly p = CreatePoly(square, GetQuadrantNeighbors (square), quadrant);
-
+				Poly p = CreatePoly(square, GetQuadrantNeighbors (square, quadrant), quadrant);
+				EvaluatePoly (p);
 			}
 		}
+	}
+
+	private void EvaluatePoly(Poly p) {
+		// Determine which collection of clusters to search in
+		if (timeline.GetGridColumn () < p.GetLeftBound ()) {
+			//currentTurn
+			AddPoly (p, ref currentTurnClusters);
+			Debug.Log ("Adding to CurrentTurnClusters.");
+		} else if (timeline.GetGridColumn () > p.GetRightBound ()) {
+			AddPoly (p, ref nextTurnClusters);
+			Debug.Log ("Adding to NextTurnClusters.");
+		} else {
+			//die
+			Debug.Log ("I dunno what to do yet.");
+		}
+		// Determine if the squares in the poly can be added to an exisiting cluster
+
+		// If not, create a new cluster and add the cluster to the appropriate collection of Clusters
+	}
+
+	public void AddPoly(Poly p, ref List<Cluster> target) {
+		Boolean didJoinCluster = false;
+
+		foreach (Cluster curr in target) {
+			if (ShouldJoin(curr, p)) {
+				foreach (Square square in p.GetSquares()) {
+					// If one of the Squares is already part of a Cluster
+					if (square.GetCluster () != null) {
+						Cluster parentCluster = square.GetCluster ();
+
+						// Don't add the Cluster to itself
+						if (parentCluster.Equals (curr)) {
+							continue;
+						}
+
+						foreach (Poly poly in parentCluster.GetPolyList()) {
+							curr.AddPoly (poly);
+							poly.UpdateClusterRef(curr);
+						}
+
+						target.Remove (curr);
+					}
+				}
+
+				didJoinCluster = true;
+				curr.AddPoly (p);
+			}
+		}
+
+		if (!didJoinCluster) {
+			// Create a new cluster
+			Cluster newCluster = new Cluster(p);
+			// Add the new cluster to the collection of clusters.
+			target.Add (newCluster);
+		}
+	}
+
+	private Boolean ShouldJoin(Cluster origin, Poly p){
+		foreach (Poly poly in origin.GetPolyList()) {
+			foreach (Square square in poly.GetSquares()) {
+				foreach (Square s in p.GetSquares()) {
+					if (square.Equals (s)) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 
 	private Square[] GetQuadrantNeighbors(Square origin, Quadrant where){
@@ -288,6 +365,7 @@ public class Grid : MonoBehaviour
 				//SHOULD NEVER HAPPEN
 				Debug.Log ("Unexpected Square Quadrant received. " +
 				           "Unable to identify neighbors' colors.");
+				break;
 		}
 		return neighbors;
 	}
@@ -311,8 +389,15 @@ public class Grid : MonoBehaviour
 				//SHOULD NEVER HAPPEN
 				Debug.Log ("Unexpected Square Quadrant received. " +
 				           "Unable to identify neighbors' colors.");
+				break;
 		}
 		return p;
+	}
+
+	public void Notify(SweeperManager timeline) {
+		Debug.Log ("Current Count = " + currentTurnClusters.Count + "; Next Count = " + nextTurnClusters.Count);
+		currentTurnClusters = nextTurnClusters;
+		nextTurnClusters.Clear();
 	}
 }
 
