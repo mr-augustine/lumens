@@ -273,10 +273,10 @@ public class Grid : MonoBehaviour
 		// Determine which collection of clusters to search in
 		if (timeline.GetGridColumn () < p.GetLeftBound ()) {
 			//currentTurn
-			AddPoly (p, ref currentTurnClusters);
+			AddPoly (p, currentTurnClusters);
 			Debug.Log ("Adding to CurrentTurnClusters.");
 		} else if (timeline.GetGridColumn () > p.GetRightBound ()) {
-			AddPoly (p, ref nextTurnClusters);
+			AddPoly (p, nextTurnClusters);
 			Debug.Log ("Adding to NextTurnClusters.");
 		} else {
 			//die
@@ -287,7 +287,7 @@ public class Grid : MonoBehaviour
 		// If not, create a new cluster and add the cluster to the appropriate collection of Clusters
 	}
 
-	public void AddPoly(Poly p, ref List<Cluster> target) {
+	public void AddPoly(Poly p, List<Cluster> target) {
 		Boolean didJoinCluster = false;
 
 		foreach (Cluster curr in target) {
@@ -396,7 +396,7 @@ public class Grid : MonoBehaviour
 
 	public void Notify(SweeperManager timeline) {
 		Debug.Log ("Current Count = " + currentTurnClusters.Count + "; Next Count = " + nextTurnClusters.Count);
-		currentTurnClusters = nextTurnClusters;
+		currentTurnClusters.AddRange (nextTurnClusters);
 		nextTurnClusters.Clear();
 	}
 }
