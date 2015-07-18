@@ -23,6 +23,7 @@ public class Square : MonoBehaviour
 	private int gridRow = 0;
 	private int gridColumn = 0;
 	//private Color color;
+	private Cluster cluster;
 
 	void Start ()
 	{
@@ -44,6 +45,7 @@ public class Square : MonoBehaviour
 			break;
 		}
 
+		cluster = null;
 		//color = mat.color;
 	}
 
@@ -228,6 +230,14 @@ public class Square : MonoBehaviour
 
 	public void PresentColor(SquareType newColor) {
 		// Use this function to change the color of the Square
+	}
+
+	public Cluster GetCluster() {
+		return cluster;
+	}
+
+	public void SetCluster(Cluster cluster) {
+		this.cluster = cluster;
 	}
 
 	public override string ToString ()

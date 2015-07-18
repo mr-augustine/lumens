@@ -4,17 +4,18 @@ using System.Collections.Generic;
 
 public class Cluster
 {
-	private int LeftBound;
-	private int RightBound;
+	//private int LeftBound;
+	//private int RightBound;
 	private int PolyCount;
 	private List<Poly> PolyList;
 	// I don't do anything yet.
 
 	public Cluster(Poly p){
 		PolyCount = 1;
+		PolyList = new List<Poly>();
 		PolyList.Add (p);
-		LeftBound = p.GetLeftColumn ();
-		RightBound = p.GetRightColumn ();
+		//LeftBound = p.GetLeftBound ();
+		//RightBound = p.GetRightBound ();
 	}
 
 	public void AddPoly(Poly p){
@@ -25,6 +26,10 @@ public class Cluster
 				break;
 			}
 		}
+	}
+
+	public List<Poly> GetPolyList() {
+		return PolyList;
 	}
 }
 

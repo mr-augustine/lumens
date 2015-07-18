@@ -14,6 +14,7 @@ public class SweeperManager : MonoBehaviour
 	private Turn current;  //!< shortcut that represents the current iteration
 	private Turn next;	   //!< shortcut that represents the next iteration
 	private int gridColumn; //!< column position within the grid matrix
+	private Grid grid;
 
 	void Start ()
 	{
@@ -27,6 +28,8 @@ public class SweeperManager : MonoBehaviour
 		PrintIteration();
 		UpdateGridColumn();
 		PrintColumnPosition ();
+
+		grid = GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>();
 	}
 
 	void Update ()
@@ -38,7 +41,7 @@ public class SweeperManager : MonoBehaviour
 		//less frantic
 		transform.Translate (moveDirection * .02f);
 		UpdateGridColumn ();
-		PrintColumnPosition ();
+		//PrintColumnPosition ();
 	}
 
 	void OnCollisionEnter (Collision col)
@@ -46,6 +49,7 @@ public class SweeperManager : MonoBehaviour
 		transform.position = startingPosition;
 		IncrementIteration();
 		PrintIteration ();
+		grid.Notify (this);
 	}
 
 	private void Begin ()
@@ -64,7 +68,7 @@ public class SweeperManager : MonoBehaviour
 		gridColumn = Grid.toCol (this.transform.position.x);
 	}
 
-	public void GetGridColumn(){
+	public int GetGridColumn(){
 		return gridColumn;
 	}
 
