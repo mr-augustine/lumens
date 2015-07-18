@@ -254,8 +254,65 @@ public class Grid : MonoBehaviour
 				// neigbors to a Cluster
 				Debug.Log ("***Neighbors of " + square.ToString () + 
 				           " in " + quadrant.ToString () + " can be deleted***");
+
+				Poly p = CreatePoly(square, GetQuadrantNeighbors (square), quadrant);
+
 			}
 		}
+	}
+
+	private Square[] GetQuadrantNeighbors(Square origin, Quadrant where){
+		Square[] neighbors = {null, null, null};
+		switch (where) {
+			case Quadrant.SW:
+				neighbors[0] = GetNeighbor(origin, Direction.S);
+				neighbors[1] = GetNeighbor(origin, Direction.SW);
+				neighbors[2] = GetNeighbor(origin, Direction.W);
+				break;
+			case Quadrant.NW:
+				neighbors[0] = GetNeighbor(origin, Direction.W);
+				neighbors[1] = GetNeighbor(origin, Direction.NW);
+				neighbors[2] = GetNeighbor(origin, Direction.N);
+				break;
+			case Quadrant.NE:
+				neighbors[0] = GetNeighbor(origin, Direction.N);
+				neighbors[1] = GetNeighbor(origin, Direction.NE);
+				neighbors[2] = GetNeighbor(origin, Direction.E);
+				break;
+			case Quadrant.SE:
+				neighbors[0] = GetNeighbor(origin, Direction.E);
+				neighbors[1] = GetNeighbor(origin, Direction.SE);
+				neighbors[2] = GetNeighbor(origin, Direction.S);
+				break;
+			default:
+				//SHOULD NEVER HAPPEN
+				Debug.Log ("Unexpected Square Quadrant received. " +
+				           "Unable to identify neighbors' colors.");
+		}
+		return neighbors;
+	}
+
+	private Poly CreatePoly(Square square, Square[] neighbors, Quadrant where){
+		Poly p = null;
+		switch (where) {
+			case Quadrant.SW:
+				p = new Poly (neighbors[0], neighbors [1], neighbors [2], square);
+				break;
+			case Quadrant.NW:
+				p = new Poly (square, neighbors [0], neighbors [1], neighbors [2]);
+				break;
+			case Quadrant.NE:
+				p = new Poly (neighbors[2], square, neighbors [0], neighbors [1]);
+				break;
+			case Quadrant.SE:
+				p = new Poly (neighbors[1], neighbors [2], square, neighbors [0]);
+				break;
+			default:
+				//SHOULD NEVER HAPPEN
+				Debug.Log ("Unexpected Square Quadrant received. " +
+				           "Unable to identify neighbors' colors.");
+		}
+		return p;
 	}
 }
 

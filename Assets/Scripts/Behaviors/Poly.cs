@@ -3,17 +3,36 @@ using System.Collections;
 using System.Collections.Generic; //so we can use List<T>
 
 // Just making this a good old-fashioned class; no Mono req'd
+using System.Text;
+
+
 public class Poly //: MonoBehaviour
 {
 	private List<Square> squares;
+	private string ID;
 
 	public Poly(Square first, Square second, Square third, Square fourth) {
 		squares = new List<Square>();
 
+		//right square
 		squares.Add(first);
-		squares.Add (second);
+		//left squares
+		squares.Add(second);
 		squares.Add(third);
-		squares.Add (fourth);
+		//right square
+		squares.Add(fourth);
+
+		//Create Poly ID
+		StringBuilder sb = new StringBuilder ();
+		sb.Append (first.GetGridRow ().ToString ());
+		sb.Append (first.GetGridColumn ().ToString ());
+		sb.Append (second.GetGridRow ().ToString ());
+		sb.Append (second.GetGridColumn ().ToString ());
+		sb.Append (third.GetGridRow ().ToString ());
+		sb.Append (third.GetGridColumn ().ToString ());
+		sb.Append (fourth.GetGridRow ().ToString ());
+		sb.Append (fourth.GetGridColumn ().ToString ());
+		ID = sb.ToString ();
 	}
 
 	public List<Square> GetSquares() {
@@ -33,6 +52,10 @@ public class Poly //: MonoBehaviour
 
 			return allSquaresShared;
 		}
+	}
+
+	public string GetID(){
+		return ID;
 	}
 
 

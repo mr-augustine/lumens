@@ -64,6 +64,10 @@ public class SweeperManager : MonoBehaviour
 		gridColumn = Grid.toCol (this.transform.position.x);
 	}
 
+	public void GetGridColumn(){
+		return gridColumn;
+	}
+
 	private void PrintIteration() {
 		Debug.Log ("Iteration #" + iteration + " started; Current Turn: " + current +
 		           "; Next Turn: " + next);

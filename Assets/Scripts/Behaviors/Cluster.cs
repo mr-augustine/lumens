@@ -1,21 +1,30 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Cluster : MonoBehaviour
+public class Cluster
 {
-
+	private int LeftBound;
+	private int RightBound;
+	private int PolyCount;
+	private List<Poly> PolyList;
 	// I don't do anything yet.
 
-	// Use this for initialization
-	void Start ()
-	{
-	
+	public Cluster(Poly p){
+		PolyCount = 1;
+		PolyList.Add (p);
+		LeftBound = p.GetLeftColumn ();
+		RightBound = p.GetRightColumn ();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
+
+	public void AddPoly(Poly p){
+		foreach(Poly poly in PolyList){
+			if(!poly.GetID().Equals(p.GetID())){
+				PolyList.Add (p);
+				PolyCount++;
+				break;
+			}
+		}
 	}
 }
 
