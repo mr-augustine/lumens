@@ -269,17 +269,23 @@ public class Grid : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Determines whether a new Poly should be added to an existing Cluster
+	/// or be formed into a new Cluster.
+	/// </summary>
+	/// <param name="p">The Poly of interest.</param>
 	private void EvaluatePoly(Poly p) {
-		// Determine which collection of clusters to search in
+		// Determine which collection of Clusters the Poly should be associated with
 		if (timeline.GetGridColumn () < p.GetLeftBound ()) {
-			//currentTurn
 			AddPoly (p, currentTurnClusters);
 			Debug.Log ("Adding to CurrentTurnClusters.");
 		} else if (timeline.GetGridColumn () > p.GetRightBound ()) {
 			AddPoly (p, nextTurnClusters);
 			Debug.Log ("Adding to NextTurnClusters.");
 		} else {
-			//die
+			// This case deals with a Poly that is formed while the Timeline
+			// was somewhere between its two columns. In Lumines, this causes
+			// a half-deletion.
 			Debug.Log ("I dunno what to do yet.");
 		}
 		// Determine if the squares in the poly can be added to an exisiting cluster
@@ -287,13 +293,21 @@ public class Grid : MonoBehaviour
 		// If not, create a new cluster and add the cluster to the appropriate collection of Clusters
 	}
 
+	/// <summary>
+	/// Adds the Poly to the specified target Cluster either as part of an
+	/// existing Cluster or a new Cluster.
+	/// </summary>
+	/// <param name="p">A new Poly.</param>
+	/// <param name="target">The target Cluster collection (i.e., current or next).</param>
 	public void AddPoly(Poly p, List<Cluster> target) {
 		Boolean didJoinCluster = false;
-
+		
 		foreach (Cluster curr in target) {
+			// If the Poly overlaps the current Cluster...
 			if (ShouldJoin(curr, p)) {
 				foreach (Square square in p.GetSquares()) {
-					// If one of the Squares is already part of a Cluster
+
+					// Determine whether the Poly is also overlapping some other Cluster
 					if (square.GetCluster () != null) {
 						Cluster parentCluster = square.GetCluster ();
 
@@ -302,6 +316,8 @@ public class Grid : MonoBehaviour
 							continue;
 						}
 
+						// If the Poly is overlapping another Cluster, then join
+						// the two Clusters, curr and parentCluster
 						foreach (Poly poly in parentCluster.GetPolyList()) {
 							curr.AddPoly (poly);
 							poly.UpdateClusterRef(curr);
@@ -311,11 +327,14 @@ public class Grid : MonoBehaviour
 					}
 				}
 
+				// And finally join the Poly to the Cluster
 				didJoinCluster = true;
 				curr.AddPoly (p);
 			}
 		}
 
+		// If the Poly doesn't contain a Square that is already a member of a Cluster,
+		// create a new Cluster
 		if (!didJoinCluster) {
 			// Create a new cluster
 			Cluster newCluster = new Cluster(p);
@@ -324,8 +343,16 @@ public class Grid : MonoBehaviour
 		}
 	}
 
-	private Boolean ShouldJoin(Cluster origin, Poly p){
-		foreach (Poly poly in origin.GetPolyList()) {
+	/// <summary>
+	/// Determines whether a Poly should be associated with the specified Cluster.
+	/// </summary>
+	/// <returns><c>true</c>, if the Poly should join the Cluster, <c>false</c> otherwise.</returns>
+	/// <param name="cluster">The Cluster of interest.</param>
+	/// <param name="p">The Poly of interest.</param>
+	private Boolean ShouldJoin(Cluster cluster, Poly p) {
+		// Determine if at least one Square overlaps between the Poly and any
+		// of the Squares in the specified Cluster.
+		foreach (Poly poly in cluster.GetPolyList()) {
 			foreach (Square square in poly.GetSquares()) {
 				foreach (Square s in p.GetSquares()) {
 					if (square.Equals (s)) {
@@ -338,6 +365,12 @@ public class Grid : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// Gets the neighbors of a Square in the specified Quadrant.
+	/// </summary>
+	/// <returns>The neighbors in the Quadrant.</returns>
+	/// <param name="origin">The Square of interest.</param>
+	/// <param name="where">The Quadrant to look for neighbors.</param>
 	private Square[] GetQuadrantNeighbors(Square origin, Quadrant where){
 		Square[] neighbors = {null, null, null};
 		switch (where) {
@@ -370,6 +403,13 @@ public class Grid : MonoBehaviour
 		return neighbors;
 	}
 
+	/// <summary>
+	/// Creates a Poly of Squares arranged in order: botRight, botLeft, topLeft, topRight
+	/// </summary>
+	/// <returns>A new Poly.</returns>
+	/// <param name="square">The origin Square.</param>
+	/// <param name="neighbors">The Square's neighbors.</param>
+	/// <param name="where">The Quadrant where the neighbors were pulled from.</param>
 	private Poly CreatePoly(Square square, Square[] neighbors, Quadrant where){
 		Poly p = null;
 		switch (where) {
@@ -391,9 +431,14 @@ public class Grid : MonoBehaviour
 				           "Unable to identify neighbors' colors.");
 				break;
 		}
+
 		return p;
 	}
 
+	/// <summary>
+	/// Called by the Timeline to notify the Grid that it finished a sweep iteration.
+	/// </summary>
+	/// <param name="timeline">The Timeline.</param>
 	public void Notify(SweeperManager timeline) {
 		Debug.Log ("Current Count = " + currentTurnClusters.Count + "; Next Count = " + nextTurnClusters.Count);
 		currentTurnClusters.AddRange (nextTurnClusters);
