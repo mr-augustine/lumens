@@ -24,6 +24,7 @@ public class Poly //: MonoBehaviour
 
 		//Create Poly ID
 		StringBuilder sb = new StringBuilder ();
+
 		sb.Append (first.GetGridRow ().ToString ());
 		sb.Append (first.GetGridColumn ().ToString ());
 		sb.Append (second.GetGridRow ().ToString ());
@@ -32,6 +33,7 @@ public class Poly //: MonoBehaviour
 		sb.Append (third.GetGridColumn ().ToString ());
 		sb.Append (fourth.GetGridRow ().ToString ());
 		sb.Append (fourth.GetGridColumn ().ToString ());
+
 		ID = sb.ToString ();
 	}
 

@@ -18,9 +18,15 @@ public class Cluster
 		//RightBound = p.GetRightBound ();
 	}
 
+	/// <summary>
+	/// Adds the specified Poly to the Cluster.
+	/// </summary>
+	/// <param name="p">The Poly.</param>
 	public void AddPoly(Poly p){
-		foreach(Poly poly in PolyList){
-			if(!poly.GetID().Equals(p.GetID())){
+		foreach(Poly poly in PolyList) {
+
+			// Only add the Poly if it doesn't already exist in the Cluster
+			if(!poly.GetID().Equals(p.GetID())) {
 				PolyList.Add (p);
 				PolyCount++;
 				break;
