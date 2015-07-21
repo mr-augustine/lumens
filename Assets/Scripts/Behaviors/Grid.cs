@@ -260,8 +260,7 @@ public class Grid : MonoBehaviour
 
 				// Here we would notify the Deleter to add the Square and its
 				// neigbors to a Cluster
-				Debug.Log ("***Neighbors of " + square.ToString () + 
-				           " in " + quadrant.ToString () + " can be deleted***");
+				//Debug.Log ("***Neighbors of " + square.ToString () +  " in " + quadrant.ToString () + " can be deleted***");
 
 				Poly p = CreatePoly(square, GetQuadrantNeighbors (square, quadrant), quadrant);
 				EvaluatePoly (p);
@@ -278,9 +277,11 @@ public class Grid : MonoBehaviour
 		// Determine which collection of Clusters the Poly should be associated with
 		if (timeline.GetGridColumn () < p.GetLeftBound ()) {
 			AddPoly (p, currentTurnClusters);
+			p.UpdateSquareColor();
 			Debug.Log ("Adding to CurrentTurnClusters.");
 		} else if (timeline.GetGridColumn () > p.GetRightBound ()) {
 			AddPoly (p, nextTurnClusters);
+			p.UpdateSquareColor();
 			Debug.Log ("Adding to NextTurnClusters.");
 		} else {
 			// This case deals with a Poly that is formed while the Timeline
@@ -330,6 +331,7 @@ public class Grid : MonoBehaviour
 				// And finally join the Poly to the Cluster
 				didJoinCluster = true;
 				curr.AddPoly (p);
+				p.UpdateClusterRef(curr);
 			}
 		}
 
@@ -340,6 +342,7 @@ public class Grid : MonoBehaviour
 			Cluster newCluster = new Cluster(p);
 			// Add the new cluster to the collection of clusters.
 			target.Add (newCluster);
+			p.UpdateClusterRef(newCluster);
 		}
 	}
 
@@ -443,6 +446,19 @@ public class Grid : MonoBehaviour
 		Debug.Log ("Current Count = " + currentTurnClusters.Count + "; Next Count = " + nextTurnClusters.Count);
 		currentTurnClusters.AddRange (nextTurnClusters);
 		nextTurnClusters.Clear();
+	}
+
+	public List<Square> GetSquaresInColumn(int col){
+		List<Square> squ = new List<Square> ();
+		for(int i = 0; i <= Grid.MAXROW; i++){
+			if(grid[i, col] != null)
+				squ.Add (grid[i, col]);
+		}
+		return squ;
+	}
+
+	public void RemoveSquare(Square s){
+
 	}
 }
 

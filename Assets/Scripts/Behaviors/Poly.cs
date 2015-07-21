@@ -74,6 +74,12 @@ public class Poly //: MonoBehaviour
 		}
 	}
 
+	public void UpdateSquareColor(){
+		foreach (Square s in squares) {
+			s.PresentColor();
+		}
+	}
+
 	/*// Use this for initialization
 	void Start ()
 	{

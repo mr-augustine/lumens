@@ -30,7 +30,7 @@ public class Block : MonoBehaviour, IEnumerable
 	public void Begin ()
 	{
 		gameObject.SetActive (true);
-		topLeft = squares [0];
+		topLeft = squares  [0];
 		topRight = squares [1];
 		botLeft = squares [2];
 		botRight = squares [3];
@@ -42,7 +42,8 @@ public class Block : MonoBehaviour, IEnumerable
 	public void Drop ()
 	{
 		foreach (GameObject obj in squares) {
-			obj.GetComponent<Square> ().MoveDown ();
+			if(obj != null)
+				obj.GetComponent<Square> ().MoveDown ();
 		}
 	}
 
@@ -202,6 +203,18 @@ public class Block : MonoBehaviour, IEnumerable
 
 	public BlockEnum GetEnumerator() {
 		return new BlockEnum(this);
+	}
+
+	public void RemoveSquare(Square s){
+		for (int i = 0; i < 4; i++) {
+			if(squares[i].Equals (s))
+				squares[i] = null;
+		}
+		foreach (GameObject sq in squares) {
+			if(sq != null)
+				return;
+		}
+		Destroy (this);
 	}
 }
 

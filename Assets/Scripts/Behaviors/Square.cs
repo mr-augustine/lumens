@@ -22,7 +22,6 @@ public class Square : MonoBehaviour
 
 	private int gridRow = 0;
 	private int gridColumn = 0;
-	//private Color color;
 	private Cluster cluster;
 
 	void Start ()
@@ -46,7 +45,6 @@ public class Square : MonoBehaviour
 		}
 
 		cluster = null;
-		//color = mat.color;
 	}
 
 	#region BLOCK MOVEMENT
@@ -228,8 +226,23 @@ public class Square : MonoBehaviour
 		SetGridColumn(column);
 	}
 
-	public void PresentColor(SquareType newColor) {
+	public void PresentColor() {
 		// Use this function to change the color of the Square
+		Material mat = GetComponent<Renderer> ().material;
+		switch (type) {
+		case SquareType.LIGHT:
+			mat.color = Color.grey;
+			break;
+		case SquareType.SPC_LIGHT:
+			mat.color = Color.grey;
+			break;
+		case SquareType.DARK:
+			mat.color = Color.magenta;
+			break;
+		case SquareType.SPC_DARK:
+			mat.color = Color.magenta;
+			break;
+		}
 	}
 
 	public Cluster GetCluster() {
@@ -243,5 +256,9 @@ public class Square : MonoBehaviour
 	public override string ToString ()
 	{
 		return base.ToString () + ": " + type.ToString ();
+	}
+
+	public Block GetBlock(){
+		return this.transform.parent.gameObject.GetComponent <Block>();
 	}
 }

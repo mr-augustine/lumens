@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class SweeperManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class SweeperManager : MonoBehaviour
 	private Turn next;	   //!< shortcut that represents the next iteration
 	private int gridColumn; //!< column position within the grid matrix
 	private Grid grid;
+	private Deleter deleter;
+
+	private int deleteCount;
 
 	void Start ()
 	{
@@ -28,8 +32,9 @@ public class SweeperManager : MonoBehaviour
 		PrintIteration();
 		UpdateGridColumn();
 		PrintColumnPosition ();
-
 		grid = GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>();
+		deleter = new Deleter (grid, this);
+		deleteCount = 0;
 	}
 
 	void Update ()
@@ -39,7 +44,7 @@ public class SweeperManager : MonoBehaviour
 		//transform.Translate (moveDirection * .05f);
 		//aah I slowed down the Timeline sweep rate to make the pacing
 		//less frantic
-		transform.Translate (moveDirection * .02f);
+		transform.Translate (moveDirection * .01f);
 		UpdateGridColumn ();
 		//PrintColumnPosition ();
 	}
@@ -59,13 +64,16 @@ public class SweeperManager : MonoBehaviour
 
 	private void IncrementIteration() {
 		iteration += 1;
-
+		deleteCount = 0;
 		next = current;
 		current = (iteration % 2 == 0 ? Turn.Even : Turn.Odd);
 	}
 
 	private void UpdateGridColumn() {
-		gridColumn = Grid.toCol (this.transform.position.x);
+		if (gridColumn != Grid.toCol (this.transform.position.x)) {
+			gridColumn = Grid.toCol (this.transform.position.x);
+			deleter.Delete(gridColumn);
+		}
 	}
 
 	public int GetGridColumn(){
@@ -84,5 +92,9 @@ public class SweeperManager : MonoBehaviour
 		// x-position in 3D space and the corresponding grid column
 		// TODO remove the magic number 8
 		Debug.Log ("Timeline Grid Position.column: " + gridColumn);
+	}
+
+	public void SetActive(bool boola){
+		active = boola;
 	}
 }

@@ -71,6 +71,7 @@ public class BlockManager : MonoBehaviour
 				if (currentBlock.GetComponent<Block> ().InDeadZone ()) {
 					//Game Over
 					Time.timeScale = 0;
+					GameObject.FindGameObjectWithTag ("TimeLine").GetComponent<SweeperManager>().SetActive(false);
 				} else {
 					// aah Before dequeuing, we should notify the grid that the block
 					// just completed its fall
