@@ -23,6 +23,8 @@ public class Square : MonoBehaviour
 	private int gridRow = 0;
 	private int gridColumn = 0;
 	private Cluster cluster;
+	private float previousElevation;
+	private bool finishedFalling;
 
 	void Start ()
 	{
