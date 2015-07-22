@@ -72,7 +72,10 @@ public class SweeperManager : MonoBehaviour
 	private void UpdateGridColumn() {
 		if (gridColumn != Grid.toCol (this.transform.position.x)) {
 			gridColumn = Grid.toCol (this.transform.position.x);
-			deleter.Delete(gridColumn);
+			if(gridColumn == 0)
+				deleter.Delete(Grid.MAXCOLUMN);
+			else
+				deleter.Delete(gridColumn - 1);
 		}
 	}
 
