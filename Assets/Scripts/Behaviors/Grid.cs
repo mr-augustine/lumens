@@ -293,6 +293,8 @@ public class Grid : MonoBehaviour
 			// This case deals with a Poly that is formed while the Timeline
 			// was somewhere between its two columns. In Lumines, this causes
 			// a half-deletion.
+			AddPoly (p, nextTurnClusters);
+			p.UpdateSquareColor();
 			Debug.Log ("I dunno what to do yet.");
 		}
 		// Determine if the squares in the poly can be added to an exisiting cluster
@@ -450,6 +452,7 @@ public class Grid : MonoBehaviour
 	/// <param name="timeline">The Timeline.</param>
 	public void Notify(SweeperManager timeline) {
 		Debug.Log ("Current Count = " + currentTurnClusters.Count + "; Next Count = " + nextTurnClusters.Count);
+		currentTurnClusters.Clear ();
 		currentTurnClusters.AddRange (nextTurnClusters);
 		nextTurnClusters.Clear();
 	}
@@ -464,7 +467,7 @@ public class Grid : MonoBehaviour
 	}
 
 	public void RemoveSquare(Square s){
-
+		grid [s.GetGridRow (), s.GetGridColumn ()] = null;
 	}
 }
 

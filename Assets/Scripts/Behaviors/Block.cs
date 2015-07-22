@@ -81,11 +81,11 @@ public class Block : MonoBehaviour, IEnumerable
 	public void MoveDown ()
 	{
 		//if (!HasCollided ()) {
-			CancelInvoke ();
+			//CancelInvoke ();
 			foreach (GameObject obj in squares) {
 				obj.GetComponent<Square> ().MoveDown ();
 			}
-			InvokeRepeating ("Drop", dropSpeed, dropSpeed);
+			//InvokeRepeating ("Drop", dropSpeed, dropSpeed);
 	//	}
 	}
 
@@ -150,7 +150,13 @@ public class Block : MonoBehaviour, IEnumerable
 		foreach (GameObject obj in squares) {
 			temp = temp && obj.GetComponent<Square> ().IsFinished ();
 		}
+		if (temp) {
+			CancelInvoke();
+			InvokeRepeating ("Drop", 1, .01f);
+		}
+
 		return temp;
+
 	}
 
 	/// <summary>

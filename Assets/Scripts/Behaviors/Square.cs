@@ -13,6 +13,12 @@ public enum SquareType
 }
 ;
 
+public enum FallingState
+{
+	FALLING,
+	STOPPED
+}
+;
 public class Square : MonoBehaviour
 {
 	[SerializeField]
@@ -23,12 +29,14 @@ public class Square : MonoBehaviour
 	private int gridRow = 0;
 	private int gridColumn = 0;
 	private Cluster cluster;
-	private float previousElevation;
-	private bool finishedFalling;
+
+	private FallingState state;
 
 	void Start ()
 	{
 		body = GetComponent<Rigidbody> ();
+
+		state = FallingState.FALLING;
 
 		Material mat = GetComponent<Renderer> ().material;
 		switch (type) {
@@ -64,8 +72,14 @@ public class Square : MonoBehaviour
 	/// </summary>
 	public void MoveDown ()
 	{
-		if (RaycastDown ())
+		if (RaycastDown ()) {
+			if(state.Equals (FallingState.STOPPED)){
+				//Remove from grid
+				state = FallingState.FALLING;
+				GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>().RemoveSquare (this);
+			}
 			body.MovePosition (transform.position + Vector3.down);
+		}
 	}
 
 	/// <summary>
@@ -102,8 +116,21 @@ public class Square : MonoBehaviour
 		if (Physics.Raycast (ray, out hit, distance)) {
 			Square tempSq;
 			if ((tempSq = hit.transform.gameObject.GetComponent<Square> ()) != null) {
+				if(tempSq.IsFinished ()){
+					if(state.Equals (FallingState.FALLING)){
+						state = FallingState.STOPPED;
+						//notify grid
+						GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>().Notify (this);
+					}
+				}
 				return !tempSq.IsFinished ();
 			} else {
+				if(state.Equals (FallingState.FALLING)){
+					state = FallingState.STOPPED;
+
+					//notify grid
+					GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>().Notify (this);
+				}
 				return false;
 			}
 		}
