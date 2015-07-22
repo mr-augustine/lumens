@@ -6,13 +6,15 @@ using Parse;
 public class CreateAccount : MonoBehaviour
 {
 	public Text username, email, password;
-	private User use;
+	private User user;
 
 	void Start ()
 	{
-		use = User.Instance;
+		user = User.Instance;
 	}
-
+	/// <summary>
+	/// Creates a new ParseUser
+	/// </summary>
 	public void CreateNewAccount ()
 	{
 		var newUser = new ParseUser (){
@@ -23,6 +25,8 @@ public class CreateAccount : MonoBehaviour
 
 		newUser.SignUpAsync ();
 
-		use.LogIn (user, null);
+		user.LogIn (username.text, null);
+
+		ChangeScene.ChangeToSceneProg (0);
 	}
 }
