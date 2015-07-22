@@ -20,9 +20,11 @@ public class Deleter
 		List<Square> squares = theGrid.GetSquaresInColumn (col);
 		foreach (Square s in squares) {
 			if(s.GetCluster() != null){
-				s.GetBlock().RemoveSquare(s);
+				if (s.GetBlock() != null)
+					s.GetBlock().RemoveSquare(s);
 				theGrid.RemoveSquare(s);
-				UnityEngine.Object.Destroy(s);
+				//UnityEngine.Object.Destroy(s);
+				s.gameObject.SetActive (false);
 			}
 		}
 	}

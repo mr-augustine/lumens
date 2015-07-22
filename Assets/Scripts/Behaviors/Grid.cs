@@ -79,6 +79,12 @@ public class Grid : MonoBehaviour
 		EvaluateBlock (fallenBlock);
 	}
 
+	public void Notify(Square fallenSquare) {
+		AddSquare (fallenSquare);
+		EvaluateSquare (fallenSquare);
+	}
+
+
 	/// <summary>
 	/// Adds the specified block to the 2D grid.
 	/// </summary>

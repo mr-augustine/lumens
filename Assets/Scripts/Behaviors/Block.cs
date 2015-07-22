@@ -207,14 +207,17 @@ public class Block : MonoBehaviour, IEnumerable
 
 	public void RemoveSquare(Square s){
 		for (int i = 0; i < 4; i++) {
-			if(squares[i].Equals (s))
+			if(squares[i] != null && squares[i].GetInstanceID () == s.gameObject.GetInstanceID ()) {
 				squares[i] = null;
+				break;
+			}
 		}
 		foreach (GameObject sq in squares) {
 			if(sq != null)
 				return;
 		}
-		Destroy (this);
+		Debug.Log ("About to destroy Block: " + this.GetInstanceID ());
+		UnityEngine.Object.Destroy (this);
 	}
 }
 
