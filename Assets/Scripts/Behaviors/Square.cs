@@ -24,6 +24,8 @@ public class Square : MonoBehaviour
 	private int gridColumn = 0;
 	private Cluster cluster;
 
+	private bool justStopped;
+
 	void Start ()
 	{
 		body = GetComponent<Rigidbody> ();
@@ -64,6 +66,13 @@ public class Square : MonoBehaviour
 	{
 		if (RaycastDown ())
 			body.MovePosition (transform.position + Vector3.down);
+		else {
+			if (justStopped) {
+				//Add to grid
+				justStopped = false;
+				GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>().Notify (this);
+			}
+		}
 	}
 
 	/// <summary>
@@ -102,6 +111,8 @@ public class Square : MonoBehaviour
 			if ((tempSq = hit.transform.gameObject.GetComponent<Square> ()) != null) {
 				return !tempSq.IsFinished ();
 			} else {
+				if(!justStopped)
+					justStopped = true;
 				return false;
 			}
 		}
