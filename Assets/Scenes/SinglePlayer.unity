@@ -692,6 +692,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c36bc3f6134449cb0e22a5e13ca83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 946256299}
+  deletedText: {fileID: 151927232}
+  levelText: {fileID: 1611714999}
+  timerText: {fileID: 24636037}
 --- !u!4 &213035863 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 4620f3c93dca8c94c9124d8ba443f43e, type: 2}
@@ -2331,6 +2335,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!4 &734174309
 Transform:
   m_ObjectHideFlags: 0
@@ -2930,6 +2935,7 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
+  m_RepeatDelay: .5
   m_AllowActivationOnMobileDevice: 0
 --- !u!114 &1295959563
 MonoBehaviour:

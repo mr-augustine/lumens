@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Deleter
 {
-
+	private int score = 0;
+	private int count = 1;
+	private int deleted = 0;
 	private SweeperManager sweeper;
 	private Grid theGrid;
 	private List<Cluster> clustersToBeDeleted;
@@ -30,16 +32,28 @@ public class Deleter
 		}
 		DeleteClusters ();
 	}
+	
+	public int GetScore() {
+		return score;
+	}
+	
+	public int GetDeleted() {
+		return deleted;
+	}
 
 	private void DeleteClusters(){
 		foreach (Cluster clust in clustersToBeDeleted) {
 			foreach(Poly p in clust.GetPolyList()){
+				score += (20 * count);
+				count++;
 				foreach(Square s in p.GetSquares()){
 					s.GetBlock().RemoveSquare(s);
 					theGrid.RemoveSquare(s);
 					s.gameObject.SetActive (false);
+					deleted++;
 				}
 			}
+			count = 1;
 		}
 		clustersToBeDeleted.Clear ();
 	}

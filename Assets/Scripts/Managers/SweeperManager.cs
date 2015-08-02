@@ -1,10 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
 public class SweeperManager : MonoBehaviour
 {
+	public Text scoreText;
+	public Text deletedText;
+	public Text levelText;
+	public Text timerText;
 
+	private float timer = 0.0f;
+	private int minutes;
+	private int seconds;
+	private int level = 1;
 	private bool active;
 	private Vector3 moveDirection;
 	private Vector3 startingPosition;
@@ -35,6 +44,8 @@ public class SweeperManager : MonoBehaviour
 		grid = GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>();
 		deleter = new Deleter (grid, this);
 		deleteCount = 0;
+		scoreText.text = "" + deleter.GetScore ();
+		deletedText.text = "" + deleter.GetDeleted ();
 	}
 
 	void Update ()
@@ -47,6 +58,27 @@ public class SweeperManager : MonoBehaviour
 		transform.Translate (moveDirection * .01f);
 		UpdateGridColumn ();
 		//PrintColumnPosition ();
+		
+		//Putting up the Score!
+		scoreText.text = "" + deleter.GetScore ();
+		
+		//Putting up how many squares were deleted
+		deletedText.text = "" + deleter.GetDeleted ();
+		
+		//Changing level by score of 500
+		if ((deleter.GetScore () / 500) == 0) {
+			level = 1;
+		}
+		else {
+			level = (deleter.GetScore () / 500) + 1;
+		}
+		levelText.text = "" + level;
+		
+		//Timer stuff
+		timer += Time.deltaTime;
+		minutes = Mathf.FloorToInt (timer / 60f);
+		seconds = Mathf.FloorToInt (timer - minutes * 60);
+		timerText.text = string.Format ("{0:00}:{1:00}", minutes, seconds);
 	}
 
 	void OnCollisionEnter (Collision col)
