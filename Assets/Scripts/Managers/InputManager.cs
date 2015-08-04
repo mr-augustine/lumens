@@ -5,6 +5,9 @@ public class InputManager : MonoBehaviour
 {
 	private static Block currentBlock;
 
+	private bool holdingDown;
+	private static bool newSpawn;
+
 	void Awake ()
 	{
 
@@ -17,7 +20,17 @@ public class InputManager : MonoBehaviour
 
 		// Move Down
 		if (Input.GetKey (KeyCode.DownArrow)) {
-			currentBlock.MoveDown ();
+			if(holdingDown && newSpawn){
+				
+			} else {
+				currentBlock.MoveDown ();
+			}
+			holdingDown = true;
+		}
+
+		if (Input.GetKeyDown (KeyCode.DownArrow)) {
+			holdingDown = false;
+			newSpawn = false;
 		}
 
 		// Move Left
@@ -75,5 +88,9 @@ public class InputManager : MonoBehaviour
 	public static void SetCurrentBlock (GameObject cB)
 	{
 		currentBlock = cB.GetComponent<Block> ();
+	}
+
+	public static void SetNewBlock(){
+		newSpawn = true;
 	}
 }

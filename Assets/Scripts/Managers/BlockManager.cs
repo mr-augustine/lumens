@@ -75,10 +75,12 @@ public class BlockManager : MonoBehaviour
 				} else {
 					// aah Before dequeuing, we should notify the grid that the block
 					// just completed its fall
+					InputManager.SetNewBlock ();
 					theGrid.Notify(currentBlock.GetComponent<Block> ());
 					currentBlock = blocks.Dequeue ();
 					InputManager.SetCurrentBlock (currentBlock);
 					currentBlock.GetComponent<Block> ().Begin ();
+
 				}
 			}
 		}

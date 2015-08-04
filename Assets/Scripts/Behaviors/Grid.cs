@@ -340,6 +340,7 @@ public class Grid : MonoBehaviour
 				didJoinCluster = true;
 				curr.AddPoly (p);
 				p.UpdateClusterRef(curr);
+				break;
 			}
 		}
 
