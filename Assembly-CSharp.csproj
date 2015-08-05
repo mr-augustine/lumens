@@ -46,7 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DatabaseHandler.cs" />
      <Compile Include="Assets\ParseTest.cs" />
+     <Compile Include="Assets\PopulateHighScores.cs" />
      <Compile Include="Assets\Scripts\Behaviors\Block.cs" />
      <Compile Include="Assets\Scripts\Behaviors\Cluster.cs" />
      <Compile Include="Assets\Scripts\Behaviors\Deleter.cs" />
@@ -83,6 +85,9 @@
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="MySql.Data">
+ <HintPath>/Users/mikeschap/lumens/Assets/MySql.Data.dll</HintPath>
  </Reference>
  <Reference Include="Parse.Unity">
  <HintPath>/Users/mikeschap/lumens/Assets/Parse.Unity.dll</HintPath>

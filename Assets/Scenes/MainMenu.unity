@@ -2949,6 +2949,7 @@ GameObject:
   - 114: {fileID: 1576483653}
   - 114: {fileID: 1576483655}
   - 82: {fileID: 1576483656}
+  - 114: {fileID: 1576483657}
   m_Layer: 0
   m_Name: User
   m_TagString: Untagged
@@ -3061,6 +3062,21 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &1576483657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1576483652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc13fd3b9397c402ea2872c240031f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  server: devcloud.fulgentcorp.com
+  uid: remoteobservers
+  pwd: RyMtUCWy3vhjZBpp
+  database: remoteobservers
 --- !u!1001 &1581350080
 Prefab:
   m_ObjectHideFlags: 0
