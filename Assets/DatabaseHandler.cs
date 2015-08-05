@@ -17,7 +17,7 @@ public class DatabaseHandler : MonoBehaviour
 	{
 		dbcon = this;
 		try {
-			credentials = string.Format ("server={0};uid={1};database={2};", server, uid, database);
+			credentials = string.Format ("server={0};uid={1};pwd={2};database={3};", server, uid, pwd, database);
 			con = new MySqlConnection ();
 			con.ConnectionString = credentials;
 			con.Open ();

@@ -3073,10 +3073,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc13fd3b9397c402ea2872c240031f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  server: localhost
-  uid: root
-  pwd: 
-  database: ASETest
+  server: devcloud.fulgentcorp.com
+  uid: remoteobservers
+  pwd: RyMtUCWy3vhjZBpp
+  database: remoteobservers
 --- !u!1001 &1581350080
 Prefab:
   m_ObjectHideFlags: 0
