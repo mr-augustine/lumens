@@ -345,7 +345,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: email
+  m_Text: username
 --- !u!224 &393271368
 RectTransform:
   m_ObjectHideFlags: 0
@@ -912,11 +912,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: a93c012dd9ef6454fa7d140e976926f7, type: 2}
       propertyPath: m_Name
-      value: email_label
+      value: username
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: a93c012dd9ef6454fa7d140e976926f7, type: 2}
       propertyPath: m_Text
-      value: Email
+      value: Username
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a93c012dd9ef6454fa7d140e976926f7, type: 2}
@@ -1120,8 +1120,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1627751138}
   m_TextComponent: {fileID: 236022844}
   m_Placeholder: {fileID: 2039138183}
-  m_ContentType: 7
-  m_InputType: 2
+  m_ContentType: 0
+  m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0

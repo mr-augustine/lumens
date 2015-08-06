@@ -24,11 +24,13 @@ public class CreateAccount : MonoBehaviour
 	{
 		userName = username.text;
 		passWord = password.text;
+		string secureWord = sha256Generator.getHashSha256 (passWord);
+		// Really shitty, but works!
 		string arguments = "[{\"action\":\"add_user\"},{\"login\":\"" + userName + "\"},{\"app_code\":\"" 
-		+ appcode + "\"},{\"password\":\"" + passWord + "\"}]";
+		+ appcode + "\"},{\"password\":\"" + secureWord + "\"}]";
 		checkSum = sha256Generator.getHashSha256(arguments);
 		url = "https://devcloud.fulgentcorp.com/bifrost/ws.php?json=[{\"action\":\"add_user\"},{\"login\":\"" + userName + "\"},{\"app_code\":\"" 
-			+ appcode + "\"},{\"password\":\"" + passWord + "\"},{\"checksum\":\"" + checkSum + "\"}]";
+			+ appcode + "\"},{\"password\":\"" + secureWord + "\"},{\"checksum\":\"" + checkSum + "\"}]";
 		StartCoroutine(Connect());
 	
 	}
@@ -36,7 +38,7 @@ public class CreateAccount : MonoBehaviour
 	IEnumerator Connect() {
 		www = new WWW(url);
 		yield return www;
-		//Debug.Log(System.Text.Encoding.ASCII.GetString(www.bytes));
+		Debug.Log(System.Text.Encoding.ASCII.GetString(www.bytes));
 		user.LogIn (username.text);
 	}
 }
