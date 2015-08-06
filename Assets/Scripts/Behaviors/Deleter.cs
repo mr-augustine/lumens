@@ -47,6 +47,10 @@ public class Deleter
 				score += (20 * count);
 				count++;
 				foreach(Square s in p.GetSquares()){
+					if(s.GetBlock () == null){
+						Debug.LogError ("UHhhh");
+						continue;
+					}
 					s.GetBlock().RemoveSquare(s);
 					theGrid.RemoveSquare(s);
 					s.gameObject.SetActive (false);
