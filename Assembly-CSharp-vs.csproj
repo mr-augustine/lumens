@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\DatabaseHandler.cs" />
+     <Compile Include="Assets\Login.cs" />
      <Compile Include="Assets\ParseTest.cs" />
      <Compile Include="Assets\PopulateHighScores.cs" />
      <Compile Include="Assets\Scripts\Behaviors\Block.cs" />
@@ -75,6 +76,7 @@
      <Compile Include="Assets\Scripts\UI\ShowSliderValue.cs" />
      <Compile Include="Assets\Scripts\UI\TiltWindow.cs" />
      <Compile Include="Assets\Scripts\User.cs" />
+     <Compile Include="Assets\Scripts\sha256Generator.cs" />
      <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
      <None Include="Assets\link.xml" />
      <None Include="Assets\Parse.Unity.xml" />

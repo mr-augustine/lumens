@@ -28,7 +28,6 @@ public class BlockManager : MonoBehaviour
 	{
 		blocks = new Queue<GameObject> ();
 		BuildBlocks ();
-
 		theGrid = GameObject.FindGameObjectWithTag("SinglePlayerScene").GetComponent<Grid>();
 	}
 

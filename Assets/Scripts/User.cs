@@ -23,11 +23,9 @@ public class User : MonoBehaviour
 	/// Logs the user in.
 	/// </summary>
 	/// <param name="name">Name.</param>
-	/// <param name="highScores">High scores.</param>
-	public void LogIn (string name, int[] highScores)
+	public void LogIn (string name)
 	{
 		this.name = name;
-		this.highScores = highScores;
 		loggedIn = true;
 	}
 

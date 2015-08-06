@@ -25,7 +25,7 @@ public class CreateAccount : MonoBehaviour
 
 		newUser.SignUpAsync ();
 
-		user.LogIn (username.text, null);
+		user.LogIn (username.text);
 
 		ChangeScene.ChangeToSceneProg (0);
 	}
