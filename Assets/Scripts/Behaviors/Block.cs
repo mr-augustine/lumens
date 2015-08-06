@@ -148,7 +148,8 @@ public class Block : MonoBehaviour, IEnumerable
 	{
 		bool temp = true;
 		foreach (GameObject obj in squares) {
-			temp = temp && obj.GetComponent<Square> ().IsFinished ();
+			if(obj.GetComponent<Square> () != null)
+				temp = temp && obj.GetComponent<Square> ().IsFinished ();
 		}
 		if (temp) {
 			CancelInvoke();
