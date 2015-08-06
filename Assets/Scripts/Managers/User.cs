@@ -6,7 +6,10 @@ public class User : MonoBehaviour
 
 	public static User Instance;
 	private string userName;
-	private int[] highScores;
+	private string userID;
+	private string sessionID;
+	private string sessionSalt;
+	private int highScore;
 	private bool loggedIn;
 
 	void Awake ()
@@ -23,9 +26,12 @@ public class User : MonoBehaviour
 	/// Logs the user in.
 	/// </summary>
 	/// <param name="name">Name.</param>
-	public void LogIn (string name)
+	public void LogIn (string name, string[] creds)
 	{
-		this.name = name;
+		userName = name;
+		userID = creds [0];
+		sessionID = creds [1];
+		sessionSalt = creds [2];
 		loggedIn = true;
 	}
 
@@ -56,25 +62,31 @@ public class User : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Gets the high scores.
+	/// Gets the user ID.
 	/// </summary>
-	/// <returns>The high scores.</returns>
-	public int[] GetHighScores ()
+	/// <returns>The user I.</returns>
+	public string GetUserID ()
 	{
-		return highScores;
+		return userID;
 	}
 
 	/// <summary>
-	/// Gets a high score at th given index.
+	/// Gets the session ID.
 	/// </summary>
-	/// <returns>The high score.</returns>
-	/// <param name="index">Index.</param>
-	public int GetHighScore (int index)
+	/// <returns>The session I.</returns>
+	public string GetSessionID ()
 	{
-		if (highScores.Length == 0 || index < 0 || index > highScores.Length - 1) {
-			return -1;
-		}
-		return highScores [index];
+		return sessionID;
 	}
+
+	/// <summary>
+	/// Gets the session salt.
+	/// </summary>
+	/// <returns>The session salt.</returns>
+	public string GetSessionSalt ()
+	{
+		return sessionSalt;
+	}
+
 
 }

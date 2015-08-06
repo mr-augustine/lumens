@@ -39,6 +39,5 @@ public class CreateAccount : MonoBehaviour
 		www = new WWW(url);
 		yield return www;
 		Debug.Log(System.Text.Encoding.ASCII.GetString(www.bytes));
-		user.LogIn (username.text);
 	}
 }
