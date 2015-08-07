@@ -32,6 +32,7 @@ public class User : MonoBehaviour
 		sessionID = creds [1];
 		sessionSalt = creds [2];
 		loggedIn = true;
+		DatabaseHandler.Instance.PullHighScore ();
 	}
 
 	/// <summary>
@@ -94,5 +95,14 @@ public class User : MonoBehaviour
 	public int GetHighScore ()
 	{
 		return highScore;
+	}
+	
+	/// <summary>
+	/// Sets the high score.
+	/// </summary>
+	/// <param name="score">Score.</param>
+	public void SetHighScore (int score)
+	{
+		highScore = score;
 	}
 }

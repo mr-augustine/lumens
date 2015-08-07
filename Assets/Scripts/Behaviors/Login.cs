@@ -17,6 +17,9 @@ public class Login : MonoBehaviour
 		user = User.Instance;
 	}
 
+	/// <summary>
+	/// Queries the web service to produce a user session.
+	/// </summary>
 	public void LogIn ()
 	{
 		string userName = userField.text;
@@ -30,7 +33,10 @@ public class Login : MonoBehaviour
 			"{\"checksum\":\"" + checkSum + "\"}]";
 		StartCoroutine (Connect ());
 	}
-	
+
+	/// <summary>
+	/// Coroutine helper function for LogIn.
+	/// </summary>
 	IEnumerator Connect ()
 	{
 		www = new WWW (url);

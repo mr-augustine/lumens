@@ -14,6 +14,9 @@ public class CreateAccount : MonoBehaviour
 		user = User.Instance;
 	}
 
+	/// <summary>
+	/// Queries the web service to create a new account.
+	/// </summary>
 	public void CreateNewAccount ()
 	{
 		string userName = username.text;
@@ -21,10 +24,14 @@ public class CreateAccount : MonoBehaviour
 		string arguments = "[{\"action\":\"add_user\"},{\"login\":\"" + userName + "\"},{\"app_code\":\"2Be3Jsb3bt\"},{\"password\":\"" + secureWord + "\"}]";
 		string checkSum = sha256Generator.getHashSha256 (arguments);
 		url = "https://devcloud.fulgentcorp.com/bifrost/ws.php?json=[{\"action\":\"add_user\"},{\"login\":\"" + userName + "\"},{\"app_code\":\"2Be3Jsb3bt\"},{\"password\":\"" + secureWord + "\"},{\"checksum\":\"" + checkSum + "\"}]";
-		StartCoroutine (Connect ());
+		StartCoroutine (CreateAccountRoutine ());
 	}
-	
-	IEnumerator Connect ()
+
+	/// <summary>
+	/// Coroutine helper function for CreateNewAccount
+	/// </summary>
+	/// <returns>The account routine.</returns>
+	IEnumerator CreateAccountRoutine ()
 	{
 		www = new WWW (url);
 		yield return www;

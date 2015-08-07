@@ -27,6 +27,10 @@ public class PopulateHighScores : MonoBehaviour
 		dbHandle.PullHighScores ();
 	}
 
+	/// <summary>
+	/// Fills the screen with high score values.
+	/// </summary>
+	/// <param name="scores">Scores.</param>
 	public void Populate (string[] scores)
 	{
 		foreach (string s in scores) {

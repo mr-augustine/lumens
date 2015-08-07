@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Deleter
 {
+	public static Deleter Instance;
 	private int score = 0;
 	private int count = 1;
 	private int deleted = 0;
@@ -14,6 +15,7 @@ public class Deleter
 
 	public Deleter (Grid grid, SweeperManager sweep)
 	{
+		Instance = this;
 		theGrid = grid;
 		sweeper = sweep;
 		clustersToBeDeleted = new List<Cluster> ();

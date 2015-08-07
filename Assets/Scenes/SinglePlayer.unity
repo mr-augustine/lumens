@@ -696,6 +696,7 @@ MonoBehaviour:
   deletedText: {fileID: 151927232}
   levelText: {fileID: 1611714999}
   timerText: {fileID: 24636037}
+  hiScoreText: {fileID: 560504551}
 --- !u!4 &213035863 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 4620f3c93dca8c94c9124d8ba443f43e, type: 2}
