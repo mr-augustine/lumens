@@ -28,7 +28,6 @@ public class Login : MonoBehaviour
 			"[{\"action\":\"login\"},{\"login\":\"" + userName + "\"}," +
 			"{\"password\":\"" + secureWord + "\"},{\"app_code\":\"2Be3Jsb3bt\"}," +
 			"{\"checksum\":\"" + checkSum + "\"}]";
-		Debug.Log (url);
 		StartCoroutine (Connect ());
 	}
 	
@@ -39,10 +38,9 @@ public class Login : MonoBehaviour
 		string response = System.Text.Encoding.ASCII.GetString (www.bytes);
 		if (JSONParser.Success (response)) {
 			user.LogIn (userField.text, JSONParser.ParseLoginCredentials (response));
-			Debug.Log("LOGIN SUCCESS");
-			ChangeScene.ChangeToSceneProg(0);
+			ChangeScene.ChangeToSceneProg (0);
 		} else {
-			failure.SetActive(true);
+			failure.SetActive (true);
 		}
 	}
 }

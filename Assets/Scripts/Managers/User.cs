@@ -3,7 +3,6 @@ using System.Collections;
 
 public class User : MonoBehaviour
 {
-
 	public static User Instance;
 	private string userName;
 	private string userID;
@@ -88,5 +87,12 @@ public class User : MonoBehaviour
 		return sessionSalt;
 	}
 
-
+	/// <summary>
+	/// Gets the high score.
+	/// </summary>
+	/// <returns>The high score.</returns>
+	public int GetHighScore ()
+	{
+		return highScore;
+	}
 }

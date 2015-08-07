@@ -20,10 +20,7 @@ public class JSONParser
 
 	public static List<string> ParseDatabaseQuery (string response, string flag)
 	{
-		foreach (string s in ExtractDataLoop (flag, "\":", "\"", response)) {
-			Debug.Log (s);
-		}
-		return null;
+		return ExtractDataLoop (flag, "\":", "\"", response);
 	}
 
 	private static string ExtractData (string flag, string begin, string end, string response)
@@ -43,7 +40,7 @@ public class JSONParser
 		string temp;
 		int start = 0;
 		while (response.Contains(flag)) {
-			temp = response.Substring (response.LastIndexOf (flag));
+			temp = response.Substring (response.IndexOf (flag));
 			temp = temp.Substring (temp.IndexOf (begin) + begin.Length);
 			if (temp [0] == '"') {
 				temp = temp.Substring (1);
@@ -51,7 +48,7 @@ public class JSONParser
 			start = temp.IndexOf (end);
 			temp = temp.Substring (0, start);
 			values.Add (temp);
-			response = response.Substring (start);
+			response = response.Substring (response.IndexOf (flag) + flag.Length);
 		}
 		return values;
 	}

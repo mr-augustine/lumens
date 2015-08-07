@@ -46,8 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\MenuHandler.cs" />
-     <Compile Include="Assets\ParseTest.cs" />
      <Compile Include="Assets\Scripts\Behaviors\Block.cs" />
      <Compile Include="Assets\Scripts\Behaviors\Cluster.cs" />
      <Compile Include="Assets\Scripts\Behaviors\CreateAccount.cs" />
@@ -61,6 +59,7 @@
      <Compile Include="Assets\Scripts\Managers\BlockManager.cs" />
      <Compile Include="Assets\Scripts\Managers\DatabaseHandler.cs" />
      <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\MenuHandler.cs" />
      <Compile Include="Assets\Scripts\Managers\SweeperManager.cs" />
      <Compile Include="Assets\Scripts\Managers\User.cs" />
      <Compile Include="Assets\Scripts\Tools\ButtonFix.cs" />
