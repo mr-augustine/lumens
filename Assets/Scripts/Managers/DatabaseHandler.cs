@@ -97,11 +97,10 @@ public class DatabaseHandler : MonoBehaviour
 	{
 		www = new WWW (url);
 		yield return www;
-		response = System.Text.Encoding.ASCII.GetString (www.bytes);
-		Debug.Log (response);
-		if (JSONParser.Success (response)) {
-			Debug.Log ("Post Success");
-		}
+//		response = System.Text.Encoding.ASCII.GetString (www.bytes);
+//		if (JSONParser.Success (response)) {
+//			Debug.Log ("Post Success");
+//		}
 	}
 
 	/// <summary>
@@ -124,9 +123,9 @@ public class DatabaseHandler : MonoBehaviour
 	{
 		www = new WWW (url);
 		yield return www;
-		response = System.Text.Encoding.ASCII.GetString (www.bytes);
-		if (JSONParser.Success (response)) {
-			Debug.Log ("Update Success");
-		}
+//		response = System.Text.Encoding.ASCII.GetString (www.bytes);
+//		if (JSONParser.Success (response)) {
+//			Debug.Log ("Update Success");
+//		}
 	}
 }

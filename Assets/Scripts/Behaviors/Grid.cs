@@ -103,12 +103,16 @@ public class Grid : MonoBehaviour
 		try {
 			AddSquare (fallenSquare);
 		} catch (Exception e) {
-			if (User.Instance.GetHighScore () == 0) {
-				DatabaseHandler.Instance.PostHighScore (Deleter.Instance.GetScore ());
-				User.Instance.SetHighScore (Deleter.Instance.GetScore ());
-			} else {
-				DatabaseHandler.Instance.UpdateHighScore (Deleter.Instance.GetScore ());
-				User.Instance.SetHighScore (Deleter.Instance.GetScore ());
+			if (User.Instance.IsLoggedIn ()) {
+				if (User.Instance.GetHighScore () == 0) {
+					DatabaseHandler.Instance.PostHighScore (Deleter.Instance.GetScore ());
+					User.Instance.SetHighScore (Deleter.Instance.GetScore ());
+				} else {
+					if (Deleter.Instance.GetScore () > User.Instance.GetHighScore ()) {
+						DatabaseHandler.Instance.UpdateHighScore (Deleter.Instance.GetScore ());
+						User.Instance.SetHighScore (Deleter.Instance.GetScore ());
+					}
+				}
 			}
 			ChangeScene.ChangeToSceneProg (0);
 		}
@@ -128,12 +132,16 @@ public class Grid : MonoBehaviour
 				AddSquare (square);
 			}
 		} catch (Exception e) {
-			if (User.Instance.GetHighScore () == 0) {
-				DatabaseHandler.Instance.PostHighScore (Deleter.Instance.GetScore ());
-				User.Instance.SetHighScore (Deleter.Instance.GetScore ());
-			} else {
-				DatabaseHandler.Instance.UpdateHighScore (Deleter.Instance.GetScore ());
-				User.Instance.SetHighScore (Deleter.Instance.GetScore ());
+			if (User.Instance.IsLoggedIn ()) {
+				if (User.Instance.GetHighScore () == 0) {
+					DatabaseHandler.Instance.PostHighScore (Deleter.Instance.GetScore ());
+					User.Instance.SetHighScore (Deleter.Instance.GetScore ());
+				} else {
+					if (Deleter.Instance.GetScore () > User.Instance.GetHighScore ()) {
+						DatabaseHandler.Instance.UpdateHighScore (Deleter.Instance.GetScore ());
+						User.Instance.SetHighScore (Deleter.Instance.GetScore ());
+					}
+				}
 			}
 			ChangeScene.ChangeToSceneProg (0);
 		}
