@@ -34,7 +34,7 @@ public class PopulateHighScores : MonoBehaviour
 	public void Populate (string[] scores)
 	{
 		foreach (string s in scores) {
-			Text temp = (Text)Instantiate (scoreBox, new Vector3 (711, boxLoc.y, 0), Quaternion.identity);
+			Text temp = (Text)Instantiate (scoreBox, new Vector3 (675, boxLoc.y, 0), Quaternion.identity);
 			temp.transform.SetParent (transform);
 			temp.text = s;
 			boxLoc += new Vector3 (0, -64, 0);
