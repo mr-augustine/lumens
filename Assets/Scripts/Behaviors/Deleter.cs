@@ -44,6 +44,7 @@ public class Deleter
 	}
 
 	private void DeleteClusters(){
+		List<int> columns = new List<int> ();
 		foreach (Cluster clust in clustersToBeDeleted) {
 			foreach(Poly p in clust.GetPolyList()){
 				score += (20 * count);
@@ -54,6 +55,7 @@ public class Deleter
 						continue;
 					}
 					s.GetBlock().RemoveSquare(s);
+					columns.Add (s.GetGridColumn());
 					theGrid.RemoveSquare(s);
 					s.gameObject.SetActive (false);
 					deleted++;
@@ -62,6 +64,16 @@ public class Deleter
 			count = 1;
 		}
 		clustersToBeDeleted.Clear ();
+		ReDrop (columns);
 	}
 
+	public void ReDrop(List<int> columns){
+		foreach (int i in columns) {
+			foreach(Square s in theGrid.GetSquaresInColumn(i)){
+				if(s != null){
+					s.GetBlock().ReDrop();
+				}
+			}
+		}
+	}
 }

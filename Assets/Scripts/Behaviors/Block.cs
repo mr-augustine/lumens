@@ -21,7 +21,7 @@ public class Block : MonoBehaviour, IEnumerable
 	{
 		manager = GameObject.Find ("BlockManager").GetComponent<BlockManager> ();
 		dropSpeed = manager.GetInterval ();
-		InvokeRepeating ("Drop", dropSpeed, dropSpeed);
+		InvokeRepeating ("Drop", dropSpeed+.5f, dropSpeed);
 	}
 
 	/// <summary>
@@ -44,6 +44,9 @@ public class Block : MonoBehaviour, IEnumerable
 		foreach (GameObject obj in squares) {
 			if(obj != null)
 				obj.GetComponent<Square> ().MoveDown ();
+		}
+		if (AllDone ()) {
+			CancelInvoke();
 		}
 	}
 
@@ -148,12 +151,13 @@ public class Block : MonoBehaviour, IEnumerable
 	{
 		bool temp = true;
 		foreach (GameObject obj in squares) {
-			if(obj.GetComponent<Square> () != null)
-				temp = temp && obj.GetComponent<Square> ().IsFinished ();
+			if(obj != null){
+				if(obj.GetComponent<Square> () != null)
+					temp = temp && obj.GetComponent<Square> ().IsFinished ();
+			}
 		}
 		if (temp) {
 			CancelInvoke();
-			InvokeRepeating ("Drop", 1, .01f);
 		}
 
 		return temp;
@@ -225,6 +229,10 @@ public class Block : MonoBehaviour, IEnumerable
 		}
 		Debug.Log ("About to destroy Block: " + this.GetInstanceID ());
 		UnityEngine.Object.Destroy (this);
+	}
+
+	public void ReDrop() {
+		InvokeRepeating ("Drop", .25f, .01f);
 	}
 }
 

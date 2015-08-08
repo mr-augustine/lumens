@@ -30,10 +30,13 @@ public class Square : MonoBehaviour
 	private int gridColumn = 0;
 	private Cluster cluster;
 
+	private bool fallComplete;
+
 	private FallingState state;
 
 	void Start ()
 	{
+		fallComplete = false;
 		body = GetComponent<Rigidbody> ();
 
 		state = FallingState.FALLING;
@@ -113,21 +116,24 @@ public class Square : MonoBehaviour
 		Ray ray = new Ray (transform.position, Vector3.down);
 		RaycastHit hit;
 		float distance = .5f;
+		bool temp;
 		if (Physics.Raycast (ray, out hit, distance)) {
 			Square tempSq;
 			if ((tempSq = hit.transform.gameObject.GetComponent<Square> ()) != null) {
-				if(tempSq.IsFinished ()){
+				temp = tempSq.IsFinished();
+				if(temp){
 					if(state.Equals (FallingState.FALLING)){
 						state = FallingState.STOPPED;
+						fallComplete = true;
 						//notify grid
 						GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>().Notify (this);
 					}
 				}
-				return !tempSq.IsFinished ();
+				return !temp;
 			} else {
 				if(state.Equals (FallingState.FALLING)){
 					state = FallingState.STOPPED;
-
+					fallComplete = true;
 					//notify grid
 					GameObject.FindGameObjectWithTag ("SinglePlayerScene").GetComponent<Grid>().Notify (this);
 				}
