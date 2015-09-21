@@ -1,0 +1,67 @@
+Initialize engine version: 5.1.1f1 (2046fc06d4d8)
+GfxDevice: creating device client; threaded=1
+d3d11: failed to create D3D11 device (0x887a0004)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 9.0c [atiumdag.dll 7.14.10.630]
+    Renderer: ATI Radeon X1200 Series 
+    Vendor:   ATI
+    VRAM:     798 MB (via DXGI)
+    Caps:     Shader=20 DepthRT=1 NativeDepth=1 NativeShadow=0 DF16=1 INTZ=0 NULL=0 RESZ=0 SlowINTZ=0
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\MySql.Data.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\MySql.Data.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\Parse.Unity.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\Parse.Unity.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+- Completed reload, in  0.153 seconds
+desktop: 1280x800 60Hz; virtual: 1280x800 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Unnamed_1\Documents\Unity-Projects\lumens\lumens_Data\Managed\System.dll (this message is harmless)
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1680 -> priority: 1 
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 11.951868 ms
+Iteration #1 started; Current Turn: Odd; Next Turn: Even
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Timeline 3D Position.x: -7.5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Timeline Grid Position.column: 0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 16070.
+Total: 12.922801 ms (FindLiveObjects: 2.498222 ms CreateObjectMapping: 1.234933 ms MarkObjects: 9.107512 ms  DeleteObjects: 0.074311 ms)
+
+Iteration #2 started; Current Turn: Even; Next Turn: Odd
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Current Count = 0; Next Count = 0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
